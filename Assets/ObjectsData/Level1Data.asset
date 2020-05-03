@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb748a4b6fdfe74eae3c39ef07bfc93, type: 3}
+  m_Name: Level1Data
+  m_EditorClassIdentifier: Assembly-CSharp::LevelLoader/LevelData
+  LevelUI: {fileID: 6363903704205062820, guid: 4b16eaab25586da43bbf35d1bd0021c6, type: 3}
+  LevelMusicSystem: {fileID: 3288271717143457411, guid: 4ca427bfa76f0f64ebf57b72939290a5,
+    type: 3}
+  PlaySpace: {fileID: 6802089520647326290, guid: b637896ef838e6148b7badf44bb61345,
+    type: 3}
