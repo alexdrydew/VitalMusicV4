@@ -1,27 +1,35 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlaySpace : MonoBehaviour, IInitializedByLoader {
     [SerializeField]
     private GameObject musicStartControllerGameObject;
-    private IMusicStartController musicStartController;
+    [SerializeField]
+    private GameObject namesProviderGameObject;
     [SerializeField]
     private List<GameObject> musicEventsSuppliersGameObjects;
     private List<IMusicEventsSupplier> musicEventsSuppliers;
 
-    private MusicSystem musicSystem;
-    private Camera camera;
-    public MusicSystem MusicSystem { get => musicSystem; private set => musicSystem = value; }
-    public Camera Camera { get => camera; private set => camera = value; }
-    public IMusicStartController MusicStartController { get => musicStartController; set => musicStartController = value; }
+    public MusicSystem MusicSystem { get; private set; }
+    public Camera Camera { get; private set; }
+    public IMusicStartController MusicStartController { get; set; }
 
-    public void Init(Camera camera, MusicSystem musicSystem) {
+    UnityAction<int> checker;
+
+    public void Init(Camera camera, MusicSystem musicSystem, CustomUI.LevelUI ui, PlaySpace playSpace) {
         MusicSystem = musicSystem;
         Camera = camera;
         foreach (var supplier in musicEventsSuppliers) {
             supplier.MusicSystem = musicSystem;
         }
+        if ((ui as CustomUI.Level1UI) != null) {
+            var chordsProvider = namesProviderGameObject.GetComponent<INamesProvider<ChordName>>();
+            checker = (int i) => (ui as CustomUI.Level1UI).TryToRevealChord(i, chordsProvider.CurrentNames[i]);
+        }
+        MusicSystem.BlockChanged.AddListener(checker);
+        MusicSystem.BlockChanged.AddListener((int i) => ui.TryToComplete());
     }
 
     private void Awake() {
@@ -29,6 +37,6 @@ public class PlaySpace : MonoBehaviour, IInitializedByLoader {
         foreach (GameObject go in musicEventsSuppliersGameObjects) {
             musicEventsSuppliers.Add(go.GetComponent<IMusicEventsSupplier>());
         }
-        musicStartController = musicStartControllerGameObject.GetComponent<IMusicStartController>();
+        MusicStartController = musicStartControllerGameObject.GetComponent<IMusicStartController>();
     }
 }

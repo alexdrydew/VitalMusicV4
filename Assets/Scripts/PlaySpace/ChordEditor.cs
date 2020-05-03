@@ -5,7 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(ChordEventSupplier), typeof(SpriteRenderer))]
-public class ChordEditor : MusicEditor, IMusicStartController {
+public class ChordEditor : MusicEditor, IMusicStartController, INamesProvider<ChordName> {
     [SerializeField]
     private ChordEditorData data;
 
@@ -22,6 +22,19 @@ public class ChordEditor : MusicEditor, IMusicStartController {
 
     private UnityEvent<int> startBlockChanged;
     public UnityEvent<int> StartBlockChanged { get => startBlockChanged; set => startBlockChanged = value; }
+
+    public List<ChordName> CurrentNames { get {
+            List<ChordName> names = new List<ChordName>();
+            foreach (ChordSlot slot in slots) {
+                if (slot.Attached == null) {
+                    names.Add(ChordName.Hidden);
+                } else {
+                    names.Add(slot.Attached.Chord);
+                }
+            }
+            return names;
+        }
+    }
 
     protected override void Awake() {
         base.Awake();

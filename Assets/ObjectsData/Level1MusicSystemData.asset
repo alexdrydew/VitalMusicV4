@@ -10,24 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: MusicSystemData
+  m_Name: Level1MusicSystemData
   m_EditorClassIdentifier: Assembly-CSharp::MusicSystemData
   Tempo: 90
   BlockLength: 1
   Grid:
-  - events:
-    - GridPos: 0
-    - GridPos: 0
-    - GridPos: 0
-    - GridPos: 0
-    - GridPos: 0
-    - GridPos: 0
-    - GridPos: 0
-    - GridPos: 0
-    - GridPos: 0
-    - GridPos: 0
-    - GridPos: 0
-    - GridPos: 0
+  - events: []
   - events: []
   - events: []
   - events: []

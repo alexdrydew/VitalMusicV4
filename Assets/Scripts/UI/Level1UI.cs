@@ -11,13 +11,14 @@ namespace CustomUI {
         [SerializeField]
         private CustomUI.Button stopButton;
         [SerializeField]
-        private ProgressGridUI progressGrid;
+        private ChordProgressGridUI progressGrid;
         [SerializeField]
         private RectTransform chordsLibraryRoot;
         [SerializeField]
         private CustomUI.Button chordsLibraryButton;
         private MusicSystem musicSystem;
 
+        private Canvas canvas;
 
         public CustomUI.SelectableButtonPressedEvent PlayButtonPressed { get => playButton.PressedSelectable; }
         public CustomUI.ButtonPressedEvent StopButtonPressed { get => stopButton.Pressed; }
@@ -26,9 +27,13 @@ namespace CustomUI {
         public ButtonPressedEvent ChordsLibraryButtonPressed { get => chordsLibraryButton.Pressed; }
         public RectTransform ChordsLibraryRoot { get => chordsLibraryRoot; }
 
-        public override void Init(Camera camera, MusicSystem musicSystem) {
+        public override void Init(Camera camera, MusicSystem musicSystem, CustomUI.LevelUI ui, PlaySpace playSpace) {
             Camera = camera;
             MusicSystem = musicSystem;
+
+            canvas = GetComponent<Canvas>();
+            canvas.worldCamera = camera;
+            canvas.planeDistance = 9f;
 
             musicSystem.Stopped.AddListener(DeselectPlayButton);
             musicSystem.Started.AddListener(SelectPlayButton);
@@ -56,11 +61,14 @@ namespace CustomUI {
         }
 
         public void TryToRevealChord(int index, ChordName guessedChord) {
-            progressGrid.TryToRevealChord(index, guessedChord);
+            progressGrid.TryToRevealName(index, guessedChord);
         }
 
-        public override bool CheckIfComplete() {
-            return progressGrid.CheckIfComplete();
+        public override bool TryToComplete() {
+            if (progressGrid.CheckIfComplete()) {
+                return true;
+            }
+            return false;
         }
     }
 }

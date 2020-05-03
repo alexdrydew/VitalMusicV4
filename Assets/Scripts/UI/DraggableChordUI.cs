@@ -5,7 +5,8 @@ using UnityEngine.EventSystems;
 using TMPro;
 
 namespace CustomUI {
-    public class DraggableChordUI : ChordUI, IBeginDragHandler, IDragHandler, IEndDragHandler {
+    public class DraggableChordUI : ChordUI, IBeginDragHandler, IDragHandler, IEndDragHandler,
+        IPointerEnterHandler, IPointerExitHandler {
 
         public static DraggableChordUI Instantiate(DraggableChordUI prefab,
             Transform parent, ChordName chord, LevelUI uiRoot) {
@@ -20,14 +21,24 @@ namespace CustomUI {
 
         private bool isProperlyInstantiated = false;
 
-        private RectTransform rectTransform;
-        private Transform parent;
+        [SerializeField]
+        private DraggableChord prefab;
 
+        [SerializeField]
+        float hoverScaleFactor = 0.95f;
+        [SerializeField]
+        float hoverScaleTime = 0.1f;
+
+        private DraggableChord currentDrag;
+        private RectTransform rectTransform;
+
+        Vector3 originalScale;
 
         protected override void Awake() {
             base.Awake();
+
             rectTransform = GetComponent<RectTransform>();
-            parent = rectTransform.parent;
+            originalScale = rectTransform.localScale;
         }
 
         private void Start() {
@@ -37,33 +48,29 @@ namespace CustomUI {
         }
 
         public void OnBeginDrag(PointerEventData eventData) {
-
             if (eventData.button == PointerEventData.InputButton.Left) {
-                transform.parent = (uiRoot as IHaveChordLibrary).ChordsLibraryRoot;
+                currentDrag = DraggableChord.Instantiate(prefab, uiRoot.Camera, Chord);
             }
         }
 
         public void OnDrag(PointerEventData eventData) {
             if (eventData.button == PointerEventData.InputButton.Left) {
-                rectTransform.position = eventData.position;
+                currentDrag.OnDrag(eventData);
             }
         }
 
         public void OnEndDrag(PointerEventData eventData) {
             if (eventData.button == PointerEventData.InputButton.Left) {
-                ContactFilter2D filter = new ContactFilter2D();
-                filter.SetLayerMask(LayerMask.GetMask("Slot"));
-                List<RaycastHit2D> results = new List<RaycastHit2D>();
-                Physics2D.Raycast(uiRoot.Camera.ScreenToWorldPoint(eventData.position), Vector2.zero, filter, results);
-                if (results.Count > 0) {
-                    ChordSlot slot = results[0].transform.GetComponent<ChordSlot>();
-                    if (slot != null) {
-                        slot.AttachChord(Chord);
-                    }
-                }
-
-                transform.parent = parent;
+                currentDrag.OnEndDrag(eventData);
             }
+        }
+
+        public void OnPointerEnter(PointerEventData eventData) {
+            LeanTween.scale(rectTransform, originalScale * hoverScaleFactor, hoverScaleTime);
+        }
+
+        public void OnPointerExit(PointerEventData eventData) {
+            LeanTween.scale(rectTransform, originalScale, hoverScaleTime);
         }
     }
 }

@@ -23,6 +23,15 @@ public class DraggableChord : MonoBehaviour, IDragHandler, IEndDragHandler {
         return instance;
     }
 
+    public static DraggableChord Instantiate(DraggableChord prefab, Camera camera, ChordName chord) {
+        var instance = Instantiate(prefab);
+        instance.name = chord.ToString();
+        instance.camera = camera;
+        instance.Chord = chord;
+        instance.isProperlyInstantiated = true;
+        return instance;
+    }
+
     private bool isProperlyInstantiated = false;
 
     private TextMeshPro text;
@@ -51,7 +60,7 @@ public class DraggableChord : MonoBehaviour, IDragHandler, IEndDragHandler {
 
     public void OnDrag(PointerEventData eventData) {
         if (eventData.button == PointerEventData.InputButton.Left) {
-            transform.position = Helpers.AddZ(camera.ScreenToWorldPoint(eventData.position), -1);
+            transform.position = Helpers.AddZ(camera.ScreenToWorldPoint(eventData.position), -5f);
         }
     }
 
@@ -64,12 +73,16 @@ public class DraggableChord : MonoBehaviour, IDragHandler, IEndDragHandler {
             if (results.Count > 0) {
                 ChordSlot slot = results[0].transform.GetComponent<ChordSlot>();
                 if (slot != null && slot != Slot) {
-                    this.Slot.FreeChord();
+                    if (Slot != null) {
+                        this.Slot.FreeChord();
+                    }
                     slot.AttachChord(this);
                 }
                 transform.localPosition = new Vector3(0, 0, -0.1f);
             } else {
-                Slot.FreeChord();
+                if (Slot != null) {
+                    Slot.FreeChord();
+                }
                 Destroy(gameObject);
             }
         }

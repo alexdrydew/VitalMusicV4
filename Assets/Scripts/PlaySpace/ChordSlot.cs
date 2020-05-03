@@ -43,6 +43,8 @@ public class ChordSlot : MonoBehaviour
         Attached = chord;
         chord.Slot = this;
         editor.UpdateMusicEvents();
+
+        GlobalEventsManager.ChordPlaced.Invoke();
     }
 
     public void FreeChord() {

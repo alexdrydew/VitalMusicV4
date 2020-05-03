@@ -6,8 +6,8 @@ namespace CustomUI {
     abstract public class LevelUI : MonoBehaviour, IInitializedByLoader {
         protected Camera activeCamera;
         public Camera Camera { get => activeCamera; protected set => activeCamera = value; }
-        abstract public bool CheckIfComplete();
-        abstract public void Init(Camera camera, MusicSystem musicSystem);
+        abstract public bool TryToComplete();
+        abstract public void Init(Camera camera, MusicSystem musicSystem, CustomUI.LevelUI ui, PlaySpace playSpace);
     }
 
     public interface IHaveChordLibrary {

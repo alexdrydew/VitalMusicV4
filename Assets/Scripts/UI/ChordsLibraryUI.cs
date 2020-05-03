@@ -16,7 +16,7 @@ namespace CustomUI {
         [SerializeField]
         private LevelUI uiRoot;
 
-        private bool isOpened = true;
+        private bool isOpened = false;
 
         private void Awake() {
             if (chordPrefab == null) {
@@ -36,6 +36,7 @@ namespace CustomUI {
             } else {
                 LeanTween.moveX(curPos, curPos.anchoredPosition.x - curPos.rect.width, toggleTime);
             }
+            GlobalEventsManager.ChordLibraryOpened.Invoke();
             isOpened = !isOpened;
         }
 

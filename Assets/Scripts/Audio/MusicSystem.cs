@@ -21,7 +21,7 @@ public class Note {
 
 [System.Serializable]
 public class Chord {
-    private const int defaultOctave = 4;
+    private const int defaultOctave = 3;
     public readonly List<Note> Notes;
     public readonly ChordName Name;
 
@@ -75,7 +75,7 @@ public class MusicEvent {
     }
 }
 
-public class MusicSystem : MonoBehaviour {
+public class MusicSystem : MonoBehaviour, IInitializedByLoader {
 
     [SerializeField]
     private MusicSystemData data;
@@ -102,6 +102,15 @@ public class MusicSystem : MonoBehaviour {
     private UnityEvent<bool> playEvent;
     private UnityEvent stopEvent;
     private UnityEvent<int> startControlEvent;
+
+    public void Init(Camera camera, MusicSystem musicSystem, CustomUI.LevelUI ui, PlaySpace playSpace) {
+        if (ui as CustomUI.IHavePlayButton != null) {
+            AssignPlay((ui as CustomUI.IHavePlayButton).PlayButtonPressed);
+        }
+        if (ui as CustomUI.IHaveStopButton != null) {
+            AssignStop((ui as CustomUI.IHaveStopButton).StopButtonPressed);
+        }
+    }
 
     private void Awake() {
         if (data == null) {
@@ -171,6 +180,8 @@ public class MusicSystem : MonoBehaviour {
             startSample = GetSampleTime();
             currentBlock = StartBlock;
             Started.Invoke();
+
+            GlobalEventsManager.PlaybackStarted.Invoke();
 
             AdvanceBlock(currentBlock);
         }
