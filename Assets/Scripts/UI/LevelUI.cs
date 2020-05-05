@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace CustomUI {
-    abstract public class LevelUI : MonoBehaviour, IInitializedByLoader {
+    abstract public class LevelUI : MonoBehaviour {
         protected Camera activeCamera;
         public Camera Camera { get => activeCamera; protected set => activeCamera = value; }
         abstract public bool TryToComplete();
-        abstract public void Init(Camera camera, MusicSystem musicSystem, CustomUI.LevelUI ui, PlaySpace playSpace);
+        abstract public void Init(Camera camera, MusicSystem musicSystem, PlaySpace playSpace, LevelUIData data);
     }
 
     public interface IHaveChordLibrary {

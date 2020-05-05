@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PlaySpace : MonoBehaviour, IInitializedByLoader {
+public class PlaySpace : MonoBehaviour {
     [SerializeField]
     private GameObject musicStartControllerGameObject;
     [SerializeField]
@@ -11,6 +11,7 @@ public class PlaySpace : MonoBehaviour, IInitializedByLoader {
     [SerializeField]
     private List<GameObject> musicEventsSuppliersGameObjects;
     private List<IMusicEventsSupplier> musicEventsSuppliers;
+    public PlaySpaceData Data;
 
     public MusicSystem MusicSystem { get; private set; }
     public Camera Camera { get; private set; }
@@ -18,9 +19,10 @@ public class PlaySpace : MonoBehaviour, IInitializedByLoader {
 
     UnityAction<int> checker;
 
-    public void Init(Camera camera, MusicSystem musicSystem, CustomUI.LevelUI ui, PlaySpace playSpace) {
+    public void Init(Camera camera, MusicSystem musicSystem, CustomUI.LevelUI ui, PlaySpaceData data) {
         MusicSystem = musicSystem;
         Camera = camera;
+        Data = data;
         foreach (var supplier in musicEventsSuppliers) {
             supplier.MusicSystem = musicSystem;
         }

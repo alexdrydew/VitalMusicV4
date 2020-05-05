@@ -41,11 +41,11 @@ namespace CustomUI {
             Pressed.Invoke();
         }
 
-        public void OnPointerEnter(PointerEventData eventData) {
+        public virtual void OnPointerEnter(PointerEventData eventData) {
             LeanTween.scale(rectTransform, originalScale * hoverScaleFactor, hoverScaleTime);
         }
 
-        public void OnPointerExit(PointerEventData eventData) {
+        public virtual void OnPointerExit(PointerEventData eventData) {
             LeanTween.scale(rectTransform, originalScale, hoverScaleTime);
         }
     }

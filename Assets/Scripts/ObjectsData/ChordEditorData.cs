@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ChordEditorData", menuName = "Objects data/ChordEditorData", order = 4)]
-public class ChordEditorData : ScriptableObject {
+public class ChordEditorData : EditorData {
     public DraggableChord ChordPrefab;
     public ChordSlot ChordSlotPrefab;
     public EditorPointer EditorPointerPrefab;

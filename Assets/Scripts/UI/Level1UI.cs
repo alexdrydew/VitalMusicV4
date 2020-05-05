@@ -18,7 +18,10 @@ namespace CustomUI {
         private CustomUI.Button chordsLibraryButton;
         private MusicSystem musicSystem;
 
+        private Tutorial tutorial;
+
         private Canvas canvas;
+        private LevelUIData data;
 
         public CustomUI.SelectableButtonPressedEvent PlayButtonPressed { get => playButton.PressedSelectable; }
         public CustomUI.ButtonPressedEvent StopButtonPressed { get => stopButton.Pressed; }
@@ -27,9 +30,10 @@ namespace CustomUI {
         public ButtonPressedEvent ChordsLibraryButtonPressed { get => chordsLibraryButton.Pressed; }
         public RectTransform ChordsLibraryRoot { get => chordsLibraryRoot; }
 
-        public override void Init(Camera camera, MusicSystem musicSystem, CustomUI.LevelUI ui, PlaySpace playSpace) {
+        public override void Init(Camera camera, MusicSystem musicSystem, PlaySpace playSpace, LevelUIData data) {
             Camera = camera;
             MusicSystem = musicSystem;
+            this.data = data;
 
             canvas = GetComponent<Canvas>();
             canvas.worldCamera = camera;
@@ -43,7 +47,15 @@ namespace CustomUI {
             if (playButton == null || stopButton == null || progressGrid == null) {
                 throw new DataException<Level1UI>();
             }
+
+            tutorial = GetComponentInChildren<Tutorial>();
         }
+
+        private void Start() {
+            tutorial.Data = data.TutorialData;
+        }
+
+
 
         private void OnDestroy() {
             if (musicSystem != null) {

@@ -84,6 +84,7 @@ public class VisualNovel : MonoBehaviour {
         if (currentReplicaIndex >= currentScene.Replicas.Count) {
             currentScene = getScene(++currentSceneIndex);
             if (currentScene == null) {
+                GameManager.Instance.NextScene();
                 return;
             }
 

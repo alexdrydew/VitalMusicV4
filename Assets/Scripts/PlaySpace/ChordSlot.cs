@@ -9,7 +9,7 @@ public class ChordSlot : MonoBehaviour
         Transform parent, Vector3 localPosition, Camera camera,
         DraggableChord chordPrefab, ChordEditor chordEditor) {
         var instance = Instantiate(prefab, parent);
-        instance.transform.localPosition = localPosition;
+        instance.transform.localPosition = Helpers.AddZ(localPosition, -0.1f);
         instance.camera = camera;
         instance.chordPrefab = chordPrefab;
         instance.editor = chordEditor;

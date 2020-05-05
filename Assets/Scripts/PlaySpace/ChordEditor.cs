@@ -39,22 +39,20 @@ public class ChordEditor : MusicEditor, IMusicStartController, INamesProvider<Ch
     protected override void Awake() {
         base.Awake();
 
-        if (data == null) {
-            throw new DataException<ChordEditor>();
-        }
-
         if (StartBlockChanged == null) {
             StartBlockChanged = new EditorPointerPosChanged();
         }
 
         eventSupplier = GetComponent<ChordEventSupplier>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-
-        var prefabSprite = data.ChordSlotPrefab.GetComponent<SpriteRenderer>();
-        chordSize = prefabSprite.bounds.size;
     }
 
     private void Start() {
+        data = playSpace.Data.EditorData as ChordEditorData;
+
+        var prefabSprite = data.ChordSlotPrefab.GetComponent<SpriteRenderer>();
+        chordSize = prefabSprite.bounds.size;
+
         int gridLength = eventSupplier.MusicSystem.Grid.Count;
 
         grid.cellSize = chordSize;

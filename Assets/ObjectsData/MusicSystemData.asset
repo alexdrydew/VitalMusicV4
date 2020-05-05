@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: Level1MusicSystemData
-  m_EditorClassIdentifier: Assembly-CSharp::MusicSystemData
+  m_Script: {fileID: 11500000, guid: 95f0d03107a02cf439cd62527355d43b, type: 3}
+  m_Name: MusicSystemData
+  m_EditorClassIdentifier: 
   Tempo: 90
   BlockLength: 1
   Grid:

@@ -75,7 +75,7 @@ public class MusicEvent {
     }
 }
 
-public class MusicSystem : MonoBehaviour, IInitializedByLoader {
+public class MusicSystem : MonoBehaviour {
 
     [SerializeField]
     private MusicSystemData data;
@@ -103,19 +103,18 @@ public class MusicSystem : MonoBehaviour, IInitializedByLoader {
     private UnityEvent stopEvent;
     private UnityEvent<int> startControlEvent;
 
-    public void Init(Camera camera, MusicSystem musicSystem, CustomUI.LevelUI ui, PlaySpace playSpace) {
+    public void Init(Camera camera, CustomUI.LevelUI ui, PlaySpace playSpace, MusicSystemData data) {
         if (ui as CustomUI.IHavePlayButton != null) {
             AssignPlay((ui as CustomUI.IHavePlayButton).PlayButtonPressed);
         }
         if (ui as CustomUI.IHaveStopButton != null) {
             AssignStop((ui as CustomUI.IHaveStopButton).StopButtonPressed);
         }
+
+        this.data = data;
     }
 
     private void Awake() {
-        if (data == null) {
-            throw new DataException<MusicSystem>();
-        }
         if (BlockChanged == null) {
             BlockChanged = new PerBlockEvent();
         }
@@ -125,10 +124,13 @@ public class MusicSystem : MonoBehaviour, IInitializedByLoader {
         if (Stopped == null) {
             Stopped = new StoppedEvent();
         }
-        ResetGrid();
+    }
+
+    private void Start() {
         if (data.BackingTracks != null && data.BackingTracks[0] != null) {
             backingTrackPlayer.clip = data.BackingTracks[0];
         }
+        ResetGrid();
     }
 
     private void OnDestroy() {

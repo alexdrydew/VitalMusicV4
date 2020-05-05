@@ -7,4 +7,8 @@ public class LevelData : ScriptableObject {
     public CustomUI.LevelUI LevelUI;
     public MusicSystem LevelMusicSystem;
     public PlaySpace PlaySpace;
+
+    public MusicSystemData MusicSystemData;
+    public PlaySpaceData PlaySpaceData;
+    public LevelUIData LevelUIData;
 }

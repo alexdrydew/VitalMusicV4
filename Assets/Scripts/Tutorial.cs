@@ -13,8 +13,7 @@ public class Tutorial : MonoBehaviour {
         OpenChordLibrary
     }
 
-    [SerializeField]
-    private TutorialData data;
+    public TutorialData Data;
     private CustomUI.MessageBoxUI msgBox;
 
     private int nodeIndex = 0;
@@ -31,7 +30,7 @@ public class Tutorial : MonoBehaviour {
 
     private void Advance() {
         ++nodeIndex;
-        if (nodeIndex < data.nodes.Count) {
+        if (nodeIndex < Data.nodes.Count) {
             NextNode();
         } else {
             gameObject.SetActive(false);
@@ -45,8 +44,8 @@ public class Tutorial : MonoBehaviour {
         if (lastEvent != null) {
             lastEvent.RemoveListener(Advance);
         }
-        msgBox.SetMessage(data.nodes[nodeIndex].message);
-        switch (data.nodes[nodeIndex].actionToProceed) {
+        msgBox.SetMessage(Data.nodes[nodeIndex].message);
+        switch (Data.nodes[nodeIndex].actionToProceed) {
             case TutorialActions.Read:
                 msgBox.Pressed.AddListener(Advance);
                 lastEvent = msgBox.Pressed;
