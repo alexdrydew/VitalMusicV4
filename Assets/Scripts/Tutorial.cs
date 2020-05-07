@@ -5,20 +5,12 @@ using UnityEngine.Events;
 
 [RequireComponent(typeof(CustomUI.MessageBoxUI))]
 public class Tutorial : MonoBehaviour {
-    public enum TutorialActions {
-        Read,
-        PlaceChord,
-        StartPlayback,
-        MovePointer,
-        OpenChordLibrary
-    }
-
     public TutorialData Data;
     private CustomUI.MessageBoxUI msgBox;
 
     private int nodeIndex = 0;
 
-    UnityEvent lastEvent;
+    GlobalEventType? lastEventType = null;
 
     private void Awake() {
         msgBox = GetComponent<CustomUI.MessageBoxUI>();
@@ -28,45 +20,27 @@ public class Tutorial : MonoBehaviour {
         NextNode();
     }
 
-    private void Advance() {
+    private void Advance(object sender) {
         ++nodeIndex;
         if (nodeIndex < Data.nodes.Count) {
             NextNode();
         } else {
             gameObject.SetActive(false);
-            if (lastEvent != null) {
-                lastEvent.RemoveListener(Advance);
+            if (lastEventType != null) {
+                GlobalEventsManager.RemoveListener(lastEventType.Value, Advance);
             }
         }
     }
 
     private void NextNode() {
-        if (lastEvent != null) {
-            lastEvent.RemoveListener(Advance);
+        if (lastEventType != null) {
+            GlobalEventsManager.RemoveListener(lastEventType.Value, Advance);
         }
         msgBox.SetMessage(Data.nodes[nodeIndex].message);
-        switch (Data.nodes[nodeIndex].actionToProceed) {
-            case TutorialActions.Read:
-                msgBox.Pressed.AddListener(Advance);
-                lastEvent = msgBox.Pressed;
-                break;
-            case TutorialActions.StartPlayback:
-                GlobalEventsManager.PlaybackStarted.AddListener(Advance);
-                lastEvent = GlobalEventsManager.PlaybackStarted;
-                break;
-            case TutorialActions.PlaceChord:
-                GlobalEventsManager.ChordPlaced.AddListener(Advance);
-                lastEvent = GlobalEventsManager.ChordPlaced;
-                break;
-            case TutorialActions.MovePointer:
-                GlobalEventsManager.PointerMoved.AddListener(Advance);
-                lastEvent = GlobalEventsManager.PointerMoved;
-                break;
-            case TutorialActions.OpenChordLibrary:
-                GlobalEventsManager.ChordLibraryOpened.AddListener(Advance);
-                lastEvent = GlobalEventsManager.ChordLibraryOpened;
-                break;
-        }
+
+        var eventType = Data.nodes[nodeIndex].eventToProceed;
+        GlobalEventsManager.AddListener(eventType, Advance);
+        lastEventType = eventType;
     }
 
 

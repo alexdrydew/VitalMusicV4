@@ -36,7 +36,7 @@ namespace CustomUI {
             } else {
                 LeanTween.moveX(curPos, curPos.anchoredPosition.x - curPos.rect.width, toggleTime);
             }
-            GlobalEventsManager.ChordLibraryOpened.Invoke();
+            GlobalEventsManager.Invoke(GlobalEventType.ChordLibraryOpenedEvent, this);
             isOpened = !isOpened;
         }
 

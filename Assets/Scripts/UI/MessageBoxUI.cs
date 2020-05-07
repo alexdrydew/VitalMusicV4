@@ -8,13 +8,9 @@ using TMPro;
 namespace CustomUI {
     public class MessageBoxUI : MonoBehaviour, IPointerClickHandler {
         private TextMeshProUGUI text;
-        public ButtonPressedEvent Pressed { get; private set; }
 
         private void Awake() {
             text = GetComponentInChildren<TextMeshProUGUI>();
-            if (Pressed == null) {
-                Pressed = new ButtonPressedEvent();
-            }
         }
 
         public void SetMessage(string msg) {
@@ -22,7 +18,7 @@ namespace CustomUI {
         }
 
         public void OnPointerClick(PointerEventData eventData) {
-            Pressed.Invoke();
+            GlobalEventsManager.Invoke(GlobalEventType.MessageBoxPressed, this);
         }
     }
 }

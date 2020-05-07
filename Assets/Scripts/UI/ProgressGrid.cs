@@ -4,17 +4,17 @@ using UnityEngine;
 using System.Linq;
 
 namespace CustomUI {
-    public class ProgressGrid<T> : MonoBehaviour {
+    public class ProgressGrid : MonoBehaviour {
         [SerializeField]
-        protected List<T> realNames;
+        protected ProgressGridData data;
         protected List<bool> guessedNames;
 
         protected virtual void Awake() {
-            guessedNames = Enumerable.Repeat(false, realNames.Count).ToList();
+            guessedNames = Enumerable.Repeat(false, data.GetNamesCount()).ToList();
         }
 
-        public virtual bool TryToRevealName(int index, T guessedName) {
-            if (EqualityComparer<T>.Default.Equals(realNames[index], guessedName)) {
+        public virtual bool TryToRevealName(int index, System.IComparable guessedName) {
+            if (data.CheckForEquality(index, guessedName)) {
                 guessedNames[index] = true;
                 return true;
             }

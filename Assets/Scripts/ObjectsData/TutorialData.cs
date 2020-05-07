@@ -8,7 +8,7 @@ public class TutorialData : ScriptableObject
     [System.Serializable]
     public class TutorialNode {
         public string message;
-        public Tutorial.TutorialActions actionToProceed;
+        public GlobalEventType eventToProceed;
     }
 
     public List<TutorialNode> nodes;

@@ -183,7 +183,7 @@ public class MusicSystem : MonoBehaviour {
             currentBlock = StartBlock;
             Started.Invoke();
 
-            GlobalEventsManager.PlaybackStarted.Invoke();
+            GlobalEventsManager.Invoke(GlobalEventType.PlaybackStartedEvent, this);
 
             AdvanceBlock(currentBlock);
         }

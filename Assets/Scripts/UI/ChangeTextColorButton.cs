@@ -20,9 +20,11 @@ namespace CustomUI {
 
         protected void Awake() {
             text = GetComponentInChildren<TextMeshProUGUI>();
-            text.color = idleColor;
         }
 
+        private void OnEnable() {
+            text.color = idleColor;
+        }
 
         public void OnPointerEnter(PointerEventData eventData) {
             text.color = hoverColor;

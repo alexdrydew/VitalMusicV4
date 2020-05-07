@@ -7,4 +7,5 @@ using UnityEngine;
 public class LevelUIData : ScriptableObject
 {
     public TutorialData TutorialData;
+    public ProgressGridData data;
 }

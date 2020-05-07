@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef19b316668931c47bc8e15975fdec76, type: 3}
-  m_Name: VisualNovelData
+  m_Name: PreLevel1VNdata
   m_EditorClassIdentifier: Assembly-CSharp::VisualNovel/VisualNovelData
   scenes:
   - BackgroundImage: {fileID: 21300000, guid: 5ca261f75d942a2409077a99e6eec0fc, type: 3}

@@ -49,7 +49,7 @@ public class EditorPointer : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                 (editor as IMusicStartController).StartBlockChanged.Invoke(
                     cellPos.x - editor.Bounds.xMin);
 
-                GlobalEventsManager.PointerMoved.Invoke();
+                GlobalEventsManager.Invoke(GlobalEventType.PointerMovedEvent, this);
             }
         }
     }
