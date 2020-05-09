@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+namespace ChordEditor {
+    public class ChordAttachedToSlotEvent : UnityEvent { }
+}
+
 public class PerBlockEvent : UnityEvent<int> { }
 public class StartedEvent : UnityEvent { }
 public class StoppedEvent : UnityEvent { }

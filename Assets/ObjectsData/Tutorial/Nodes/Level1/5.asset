@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d31f5855889fdbf46b695ae7429f9271, type: 3}
+  m_Name: 5
+  m_EditorClassIdentifier: 
+  message: Near Play and Stop buttons you can see blocks with question marks. At
+    the beginning of the level all of them are closed. To open it make a right chords
+    sequence and listen to it. Correctly chosen chords will be opened.
+  eventToProceed: {fileID: 11400000, guid: cb24b2327624e9740acff9311991f184, type: 2}

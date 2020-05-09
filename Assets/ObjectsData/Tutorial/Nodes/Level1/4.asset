@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d31f5855889fdbf46b695ae7429f9271, type: 3}
+  m_Name: 4
+  m_EditorClassIdentifier: 
+  message: Every slot represents one bar of the whole track. Now you can try to press
+    play button and you will hear the chord you placed when the track will reach
+    this point.
+  eventToProceed: {fileID: 11400000, guid: e030b9d61bbadbb4fab693ee7c3e3dde, type: 2}

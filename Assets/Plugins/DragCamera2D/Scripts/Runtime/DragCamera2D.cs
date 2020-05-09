@@ -5,8 +5,7 @@ using UnityEditor;
 #endif
 using UnityEngine;
 
-public class DragCamera2D : MonoBehaviour
-{
+public class DragCamera2D : MonoBehaviour {
     /*
      *TODO: 
      *  DONE: replace dolly with bezier dolly system
@@ -55,7 +54,7 @@ public class DragCamera2D : MonoBehaviour
     [Tooltip("Enable or disable touch input (Pro Only)")]
     public bool touchEnabled = false;
     [Tooltip("Drag Speed for touch controls (Pro Only)")]
-    [Range(-5,5)]
+    [Range(-5, 5)]
     public float touchDragSpeed = -0.03f;
 
     [Header("Zoom")]
@@ -74,19 +73,19 @@ public class DragCamera2D : MonoBehaviour
     [Tooltip("Enable Zooming to mouse pointer (Pro Only)")]
     public bool zoomToMouse = false;
 
-   
+
 
 
     [Header("Follow Object")]
     public GameObject followTarget;
-    [Range(0.01f,1f)]
+    [Range(0.01f, 1f)]
     public float lerpSpeed = 0.5f;
-    public Vector3 offset = new Vector3(0,0,-10);
+    public Vector3 offset = new Vector3(0, 0, -10);
 
 
     [Header("Camera Bounds")]
     public bool clampCamera = true;
-    public CameraBounds bounds; 
+    public CameraBounds bounds;
     public Dc2dDolly dollyRail;
 
 
@@ -128,10 +127,10 @@ public class DragCamera2D : MonoBehaviour
             doTouchControls();
         }
 
-        if(dollyRail != null) {
+        if (dollyRail != null) {
             stickToDollyRail();
         }
-       
+
     }
 
     private void edgeScroll() {
@@ -152,7 +151,7 @@ public class DragCamera2D : MonoBehaviour
         }
         if (Input.mousePosition.y <= 0 + edgeBoundary) {
             // Move the camera
-            y =  Time.deltaTime * -edgeSpeed
+            y = Time.deltaTime * -edgeSpeed
 ;
         }
         transform.Translate(x, y, 0);
@@ -188,8 +187,8 @@ public class DragCamera2D : MonoBehaviour
         if (bounds == null) {
             GameObject go = new GameObject("CameraBounds");
             CameraBounds cb = go.AddComponent<CameraBounds>();
-            cb.guiColour = new Color(0,0,1f,0.1f);
-            cb.pointa = new Vector3(20,20,0);
+            cb.guiColour = new Color(0, 0, 1f, 0.1f);
+            cb.pointa = new Vector3(20, 20, 0);
             this.bounds = cb;
 #if UNITY_EDITOR
             EditorUtility.SetDirty(this);
@@ -222,7 +221,7 @@ public class DragCamera2D : MonoBehaviour
 
 
 
-       // if mouse is down
+        // if mouse is down
         if (Input.GetMouseButton(mouseButton)) {
             float x = -Input.GetAxis("Mouse X") * dragSpeed;
             float y = -Input.GetAxis("Mouse Y") * dragSpeed;
@@ -235,11 +234,11 @@ public class DragCamera2D : MonoBehaviour
             transform.Translate(x, y, 0);
         }
 
-        
+
     }
 
     private void clampZoom() {
-        Camera.main.orthographicSize =  Mathf.Clamp(Camera.main.orthographicSize, minZoom, maxZoom);
+        Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize, minZoom, maxZoom);
         Mathf.Max(cam.orthographicSize, 0.1f);
 
 
@@ -275,7 +274,7 @@ public class DragCamera2D : MonoBehaviour
         tr = cam.ScreenToWorldPoint(new Vector3(cam.pixelWidth, cam.pixelHeight, -transform.position.z));
         bl = cam.ScreenToWorldPoint(new Vector3(0, 0, -transform.position.z));
 
-        if(bounds == null) {
+        if (bounds == null) {
             Debug.Log("Clamp Camera Enabled but no Bounds has been set.");
             return;
         }
@@ -303,7 +302,7 @@ public class DragCamera2D : MonoBehaviour
     }
 
     public void stickToDollyRail() {
-        if(dollyRail != null && followTarget != null) {
+        if (dollyRail != null && followTarget != null) {
             Vector3 campos = dollyRail.getPositionOnTrack(followTarget.transform.position);
             transform.position = new Vector3(campos.x, campos.y, transform.position.z);
         }

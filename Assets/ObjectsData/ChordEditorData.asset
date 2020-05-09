@@ -11,13 +11,12 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ad8d6df8ca0c2b42a4c5a4bcc67efaf, type: 3}
   m_Name: ChordEditorData
-  m_EditorClassIdentifier: Assembly-CSharp::ChordEditor/ChordEditorData
-  ChordPrefab: {fileID: 8463735353362127053, guid: 5edbb989bf138874588c3ab1b7b7d067,
+  m_EditorClassIdentifier: 
+  chordPrefab: {fileID: 8463735353362127053, guid: 5edbb989bf138874588c3ab1b7b7d067,
     type: 3}
-  ChordSlotPrefab: {fileID: -2231780883887893656, guid: 6fa941932e511e64c8c66f6f58a71968,
+  chordSlotPrefab: {fileID: -2231780883887893656, guid: 6fa941932e511e64c8c66f6f58a71968,
     type: 3}
-  EditorPointerPrefab: {fileID: 1600524197352593178, guid: 82449b378d69c74408ab80f387ade82c,
+  editorPointerPrefab: {fileID: 1600524197352593178, guid: 82449b378d69c74408ab80f387ade82c,
     type: 3}
-  Origin: {x: 0, y: 0, z: 0}
-  ContentMargin: 1
-  Height: 4
+  origin: {x: 0, y: 0, z: 0}
+  contentMargin: 1
