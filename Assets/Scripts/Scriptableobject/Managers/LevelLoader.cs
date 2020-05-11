@@ -3,21 +3,18 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "LevelLoader", menuName = "Managers/LevelLoader")]
 public class LevelLoader : ScriptableObject {
+    private LevelData currentLevel;
+
     [SerializeField]
     private List<LevelData> levels;
-    private LevelData currentLevel;
 
     public void LoadLevel(int index) {
         LoadLevel(levels[index]);
     }
 
     public void LoadLevel(LevelData levelData) {
-        if (currentLevel == levelData) {
-            return;
-        }
-        if (currentLevel != null) {
-            currentLevel.Unload();
-        }
+        if (currentLevel == levelData) return;
+        if (currentLevel != null) currentLevel.Unload();
         levelData.Load();
         currentLevel = levelData;
     }

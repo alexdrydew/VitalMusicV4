@@ -1,38 +1,36 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using TMPro;
 
 namespace VisualNovel {
     public class VisualNovelUI : MonoBehaviour, IPointerClickHandler {
         [SerializeField]
-        Image textBackground;
-        [SerializeField]
-        Image backgroundImage;
-        [SerializeField]
-        TextMeshProUGUI text;
-        [SerializeField]
-        TextMeshProUGUI speaker;
-
-        public Image TextBackground { get => textBackground; }
-        public TextMeshProUGUI Text { get => text; }
-        public Image BackgroundImage { get => backgroundImage; }
-        public TextMeshProUGUI Speaker { get => speaker; }
+        private Image backgroundImage;
 
         public UnityEvent Skipped;
 
-        private void Awake() {
-            if (Skipped == null) {
-                Skipped = new UnityEvent();
-            }
-        }
+        [SerializeField]
+        private TextMeshProUGUI speaker;
+
+        [SerializeField]
+        private TextMeshProUGUI text;
+
+        [SerializeField]
+        private Image textBackground;
+
+        public Image TextBackground => textBackground;
+        public TextMeshProUGUI Text => text;
+        public Image BackgroundImage => backgroundImage;
+        public TextMeshProUGUI Speaker => speaker;
 
         public void OnPointerClick(PointerEventData eventData) {
             Skipped.Invoke();
         }
+
+        private void Awake() {
+            if (Skipped == null) Skipped = new UnityEvent();
+        }
     }
 }
-

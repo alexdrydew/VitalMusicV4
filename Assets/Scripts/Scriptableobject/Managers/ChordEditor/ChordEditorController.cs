@@ -1,38 +1,37 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Managers;
 using UnityEngine;
 
 namespace ChordEditor {
     [CreateAssetMenu(fileName = "ChordEditorController", menuName = "ChordEditor/ChordEditorController")]
-    public class ChordEditorController : ScriptableObject {
+    public class ChordEditorController : EditorController {
+        private ChordEditor chordEditor;
+
         [SerializeField]
         private ChordEventManager chordEventManager;
-        [SerializeField]
-        private GameEvent.GameEvent PointerPosChangedEvent;
+
         [SerializeField]
         private GameEvent.GameEvent ChordPlacedEvent;
 
-        private Managers.MusicSystem musicSystem;
         private ChordsLibraryUI libraryUI;
-        private ChordEditor chordEditor;
 
-        public EditorPointerPosChanged PointerPosChanged => chordEditor.PointerPosChanged;
+        [SerializeField]
+        private GameEvent.GameEvent PointerPosChangedEvent;
 
         private void InitLibrary(Canvas libraryUIPrefab) {
-            var libraryUICanvas = Instantiate(libraryUIPrefab);
+            Canvas libraryUICanvas = Instantiate(libraryUIPrefab);
             libraryUICanvas.worldCamera = Camera.main;
             libraryUICanvas.planeDistance = 9f;
             libraryUI = libraryUICanvas.GetComponentInChildren<ChordsLibraryUI>();
         }
 
-        public void Init(Canvas libraryUIPrefab, ChordEditor chordEditorPrefab, Managers.MusicSystem musicSystem) {
+        public void Init(Canvas libraryUIPrefab, ChordEditor chordEditorPrefab, MusicSystem musicSystem) {
             InitLibrary(libraryUIPrefab);
 
-            this.musicSystem = musicSystem;
-
             chordEditor = Instantiate(chordEditorPrefab);
+            base.Init(chordEditor);
+
             chordEditor.ChordsUpdated.AddListener(UpdateChords);
-            chordEventManager.Init(musicSystem);
+            chordEventManager.Init();
 
             PointerPosChanged.AddListener(_ => PointerPosChangedEvent.Invoke());
             chordEditor.ChordsUpdated.AddListener(ChordPlacedEvent.Invoke);
@@ -42,26 +41,13 @@ namespace ChordEditor {
             return chordEditor.CurrentNames[pos];
         }
 
-        public void StartPointerControl() {
-            chordEditor.SavePointerPos();
-        }
-
-        public void MoveControlledPointer(int pos) {
-            chordEditor.MovePointerTo(pos);
-        }
-
-        public void EndPointerControl() {
-            chordEditor.RestorePointerPos();
-        }
-
         private void UpdateChords() {
             chordEventManager.UpdateChords(chordEditor.CurrentNames);
         }
 
-        public void Destroy() {
+        public override void Destroy() {
             Destroy(libraryUI);
             Destroy(chordEditor);
         }
-
     }
 }

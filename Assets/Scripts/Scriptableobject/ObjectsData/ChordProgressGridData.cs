@@ -6,10 +6,11 @@ using UnityEngine;
 public class ChordProgressGridData : ProgressGridData {
     [SerializeField]
     private List<ChordName> hiddenChords;
+
     public List<ChordName> HiddenChords => hiddenChords;
 
     public override bool CheckForEquality(int index, IComparable value) {
-        return ((ChordName)value) == HiddenChords[index];
+        return (ChordName) value == HiddenChords[index];
     }
 
     public override int GetNamesCount() {

@@ -1,15 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace CustomUI {
-    public class SelectableButton : CustomUI.Button {
-        public SelectableButtonPressedEvent PressedSelectable;
-        private bool isSelected = false;
-
+    public class SelectableButton : Button {
         [SerializeField]
         protected Sprite idleSelectedSprite;
+
+        private bool isSelected;
+        public SelectableButtonPressedEvent PressedSelectable;
 
         public bool IsSelected {
             get => isSelected;
@@ -21,17 +19,14 @@ namespace CustomUI {
 
         protected override void Awake() {
             base.Awake();
-            if (PressedSelectable == null) {
-                PressedSelectable = new SelectableButtonPressedEvent();
-            }
+            if (PressedSelectable == null) PressedSelectable = new SelectableButtonPressedEvent();
         }
 
         private void UpdateSprite() {
-            if (IsSelected) {
+            if (IsSelected)
                 image.sprite = idleSelectedSprite;
-            } else {
+            else
                 image.sprite = idleSprite;
-            }
         }
 
         public override void OnPointerClick(PointerEventData eventData) {

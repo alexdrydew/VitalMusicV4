@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60a608c7f6e70dd4c9c189b5d3484007, type: 3}
+  m_Name: willie_5
+  m_EditorClassIdentifier: 
+  character: {fileID: 11400000, guid: 5c36aadcc2703e142834204aa57c659d, type: 2}
+  what: "Now I\u2019m gonna rock out all night! The album's release exceeded all
+    expectations. Check it out, this album will be at the top of the charts in a
+    couple of days."

@@ -1,22 +1,33 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.Events;
-using TMPro;
+using UnityEngine.EventSystems;
 
 namespace CustomUI {
-    public class ChangeTextColorButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler {
-
-        [SerializeField]
-        private Color hoverColor;
-        [SerializeField]
-        private Color idleColor;
-
+    public class ChangeTextColorButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler,
+        IPointerClickHandler {
         [SerializeField]
         private UnityEvent action;
 
+        [SerializeField]
+        private Color hoverColor;
+
+        [SerializeField]
+        private Color idleColor;
+
         private TextMeshProUGUI text;
+
+        public void OnPointerClick(PointerEventData eventData) {
+            action.Invoke();
+        }
+
+        public void OnPointerEnter(PointerEventData eventData) {
+            text.color = hoverColor;
+        }
+
+        public void OnPointerExit(PointerEventData eventData) {
+            text.color = idleColor;
+        }
 
         protected void Awake() {
             text = GetComponentInChildren<TextMeshProUGUI>();
@@ -24,17 +35,6 @@ namespace CustomUI {
 
         private void OnEnable() {
             text.color = idleColor;
-        }
-
-        public void OnPointerEnter(PointerEventData eventData) {
-            text.color = hoverColor;
-        }
-        public void OnPointerExit(PointerEventData eventData) {
-            text.color = idleColor;
-        }
-
-        public void OnPointerClick(PointerEventData eventData) {
-            action.Invoke();
         }
     }
 }

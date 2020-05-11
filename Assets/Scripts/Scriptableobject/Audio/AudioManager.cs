@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Audio;
 
 namespace Managers {
@@ -8,11 +6,12 @@ namespace Managers {
     public class AudioManager : ScriptableObject {
         public enum Volume {
             Piano,
-            String
+            String,
         }
 
         [SerializeField]
         private AudioMixer mixer;
+
         public AudioMixer Mixer => mixer;
 
         public void SetFloat(string target, float value) {

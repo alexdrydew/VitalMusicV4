@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace VisualNovel {
@@ -7,6 +6,7 @@ namespace VisualNovel {
     public class Scene : ScriptableObject {
         [SerializeField]
         private Sprite backgroundImage;
+
         [SerializeField]
         private List<Replica> replicas;
 

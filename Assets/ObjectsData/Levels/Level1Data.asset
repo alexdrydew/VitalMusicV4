@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c067bc0f63d44be45a030e0695e10d17, type: 3}
+  m_Name: Level1Data
+  m_EditorClassIdentifier: 
+  levelScene: Level
+  musicSystem: {fileID: 11400000, guid: 2c15a90e7d117e141a9ac67b5ef8cd03, type: 2}
+  chordLibraryUIPrefab: {fileID: 4831780621263310414, guid: 25bcccde7c20962498634bb569543ff4,
+    type: 3}
+  chordEditorPrefab: {fileID: 6653216524583685287, guid: 54ee5ef659967e34089cce60bd31b2d3,
+    type: 3}
+  controlPanelPrefab: {fileID: 7794602614211843474, guid: 2df7114a6146e594eb04ab29ab81043b,
+    type: 3}
+  chordProgressGridPrefab: {fileID: 7719916834623798017, guid: 4db0db56a6899ce4c9a344b6ab7ce074,
+    type: 3}
+  chordEditorController: {fileID: 11400000, guid: 6cf8f48af4770214b9437c83795fadc2,
+    type: 2}
+  tutorialController: {fileID: 11400000, guid: a175d6020860a64459366e2759304c7d, type: 2}

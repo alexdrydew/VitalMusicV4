@@ -1,80 +1,71 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using ChordEditor;
 using CustomUI;
+using ProgressGrid;
+using Tutorial;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Level1 {
     [CreateAssetMenu(fileName = "Level1Data", menuName = "LevelData/Level1Data")]
-    public class Level1Data : LevelData {
+    public class Level1Data : MusicLevelData {
         [SerializeField]
-        [Scene]
-        private string levelScene;
-        [SerializeField]
-        private Canvas chordLibraryUIPrefab;
+        private ChordEditorController chordEditorController;
+
         [SerializeField]
         private ChordEditor.ChordEditor chordEditorPrefab;
-        [SerializeField]
-        private Level1ControlPanel controlPanelPrefab;
-        [SerializeField]
-        private ProgressGrid.ChordProgressGridUI chordProgressGridPrefab;
-        [SerializeField]
-        private ChordEditor.ChordEditorController chordEditorController;
-        [SerializeField]
-        private Managers.MusicSystem musicSystem;
-        [SerializeField]
-        private Tutorial.TutorialController tutorialController;
 
-        private ProgressGrid.ChordProgressGridUI chordProgressGrid;
-        private Level1ControlPanel controlPanel;
+        [SerializeField]
+        private Canvas chordLibraryUIPrefab;
+
+        private ChordProgressGridUI chordProgressGrid;
+
+        [SerializeField]
+        private ChordProgressGridUI chordProgressGridPrefab;
+
+        private LevelControlPanel controlPanel;
+
+        [SerializeField]
+        private LevelControlPanel controlPanelPrefab;
+
+        [SerializeField]
+        private TutorialController tutorialController;
 
         private void CheckChord(int pos) {
             ChordName? chord = chordEditorController.GetChord(pos);
-            if (chord != null) {
-                if (chordProgressGrid.TryToRevealChord(pos, (ChordName)chord)) {
-                    if (chordProgressGrid.CheckIfComplete()) {
+            if (chord != null)
+                if (chordProgressGrid.TryToRevealChord(pos, (ChordName) chord))
+                    if (chordProgressGrid.CheckIfComplete())
                         CompleteLevel();
-                    }
-                }
-            }
         }
 
         private void CompleteLevel() {
             Debug.Log("Level completed");
         }
 
-        private IEnumerator LoadAsync() {
-            var asyncLoad = SceneManager.LoadSceneAsync(levelScene);
-            while (!asyncLoad.isDone) {
-                yield return null;
-            }
-
-            musicSystem.Init();
-            chordEditorController.Init(chordLibraryUIPrefab, chordEditorPrefab, musicSystem);
-
+        private void AssignControlPanelControls() {
             controlPanel = Instantiate(controlPanelPrefab);
             controlPanel.PlayButtonPressed.AddListener(musicSystem.PlayPause);
             controlPanel.StopButtonPressed.AddListener(musicSystem.Stop);
+        }
 
-            chordEditorController.PointerPosChanged.AddListener((int pos) => musicSystem.StartBlock = pos);
+        private void AssignMusicSystemControls() {
             musicSystem.Stopped.AddListener(() => controlPanel.SetPlaySelected(false));
-
             musicSystem.Started.AddListener(chordEditorController.StartPointerControl);
             musicSystem.BlockChanged.AddListener(chordEditorController.MoveControlledPointer);
             musicSystem.Stopped.AddListener(chordEditorController.EndPointerControl);
+            musicSystem.BlockChanged.AddListener(CheckChord);
+        }
+
+        protected override IEnumerator LoadAsync() {
+            yield return base.LoadAsync();
 
             chordProgressGrid = Instantiate(chordProgressGridPrefab);
-            musicSystem.BlockChanged.AddListener(CheckChord);
-
+            chordEditorController.Init(chordLibraryUIPrefab, chordEditorPrefab, musicSystem);
             tutorialController.Init();
-        }
 
-        public void ChangePointerPos() {
-
-        }
-
-        public override void Load() {
-            EntryPoint.Instance.StartCoroutine(LoadAsync());
+            AssignControlPanelControls();
+            AssignMusicSystemControls();
+            chordEditorController.PointerPosChanged.AddListener(pos => musicSystem.StartBlock = pos);
         }
 
         public override void Unload() {

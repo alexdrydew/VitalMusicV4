@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public static partial class Helpers {
     public static Vector3 ReplaceX(Vector3 vec, float x) {

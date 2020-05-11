@@ -1,35 +1,33 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using CustomUI;
 using UnityEngine;
-using UnityEngine.UI;
-
 
 namespace ChordEditor {
     public class ChordsLibraryUI : MonoBehaviour {
         [SerializeField]
+        private Button button;
+
+        [SerializeField]
         private GameEvent.GameEvent chordLibraryOpenedEvent;
-        [SerializeField]
-        private List<ChordName> initialChords;
-        [SerializeField]
-        private CustomUI.Button button;
-        [SerializeField]
-        private float toggleTime = 0.5f;
+
         [SerializeField]
         private DraggableChordUI chordPrefab;
+
         [SerializeField]
         private Transform content;
 
-        private bool isOpened = false;
+        [SerializeField]
+        private List<ChordName> initialChords;
+
+        private bool isOpened;
         private RectTransform rectTransform;
 
+        [SerializeField]
+        private float toggleTime = 0.5f;
+
         private void Awake() {
-            if (chordPrefab == null) {
-                throw new DataException<ChordsLibraryUI>();
-            }
-            foreach (var chord in initialChords) {
-                AddChord(chord);
-            }
+            if (chordPrefab == null) throw new DataException<ChordsLibraryUI>();
+            foreach (ChordName chord in initialChords) AddChord(chord);
 
             rectTransform = GetComponent<RectTransform>();
         }
@@ -39,13 +37,12 @@ namespace ChordEditor {
         }
 
         public void Toggle() {
-            if (isOpened) {
-                LeanTween.moveX(rectTransform, 
+            if (isOpened)
+                LeanTween.moveX(rectTransform,
                     rectTransform.anchoredPosition.x + rectTransform.rect.width, toggleTime);
-            } else {
-                LeanTween.moveX(rectTransform, 
+            else
+                LeanTween.moveX(rectTransform,
                     rectTransform.anchoredPosition.x - rectTransform.rect.width, toggleTime);
-            }
             chordLibraryOpenedEvent.Invoke();
             isOpened = !isOpened;
         }

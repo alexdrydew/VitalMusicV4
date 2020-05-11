@@ -1,36 +1,42 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Managers;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace VisualNovel {
     [CreateAssetMenu(fileName = "VisualNovelData", menuName = "VisualNovel/VisualNovelData")]
     public class VisualNovelData : LevelData {
-        [Scene] [SerializeField]
-        private string scene;
         [SerializeField]
-        private List<Scene> scenes;
-        [SerializeField]
-        private Sprite textBackground;
-        [SerializeField]
-        private VisualNovelUI uiPrefab;
+        private ApplicationManager applicationManager;
+
         [SerializeField]
         private VisualNovelController controller;
+
+        [Scene] [SerializeField]
+        private string scene;
+
         [SerializeField]
-        private Managers.ApplicationManager applicationManager;
+        private List<Scene> scenes;
+
         [SerializeField]
-        private int startSceneIndex = 0;
+        private int startSceneIndex;
+
+        [SerializeField]
+        private Sprite textBackground;
+
+        [SerializeField]
+        private VisualNovelUI uiPrefab;
 
         public List<Scene> Scenes => scenes;
         public Sprite TextBackground => textBackground;
         public VisualNovelUI UIPrefab => uiPrefab;
-        public Managers.ApplicationManager ApplicationManager => applicationManager;
+        public ApplicationManager ApplicationManager => applicationManager;
         public int StartSceneIndex => startSceneIndex;
 
         private IEnumerator LoadAsync() {
-            var asyncLoad = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(scene);
-            while (!asyncLoad.isDone) {
-                yield return null;
-            }
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(scene);
+            while (!asyncLoad.isDone) yield return null;
             controller.Init(this);
         }
 

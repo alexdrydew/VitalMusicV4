@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60a608c7f6e70dd4c9c189b5d3484007, type: 3}
+  m_Name: anon_17
+  m_EditorClassIdentifier: 
+  character: {fileID: 11400000, guid: 031dcaa2dcece1d4fa351b6450d280c6, type: 2}
+  what: "Also you can call to police and tell everything about it. But I don\u2019t
+    advise you to do that. We have our people everywhere, and in police also. We\u2019ll
+    find out that you called them, and the only thing I can wish \u2013 hide so well
+    that my guys won\u2019t find you."

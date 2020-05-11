@@ -8,6 +8,7 @@ public class Kars : MidiPlayer {
 
     [DllImport("AudioPluginGuitarUnityx64")]
     private static extern void DistrhoKars_AddEvent(long sample, int msg);
+
     [DllImport("AudioPluginGuitarUnityx64")]
     private static extern void DistrhoKars_MuteAll();
 

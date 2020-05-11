@@ -1,20 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using CustomUI;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Tutorial {
     [CreateAssetMenu(fileName = "TutorialController", menuName = "Tutorial/TutorialController")]
     public class TutorialController : ScriptableObject {
         [SerializeField]
         private TutorialControllerData Data;
+
+        private GameEvent.GameEvent lastEvent;
+        private MessageBoxUI msgBox;
+
+        private int nodeIndex;
+
         [SerializeField]
-        private CustomUI.MessageBoxUI uiPrefab;
-        private CustomUI.MessageBoxUI msgBox;
-
-        private int nodeIndex = 0;
-
-        GameEvent.GameEvent lastEvent = null;
+        private MessageBoxUI uiPrefab;
 
         public void Init() {
             nodeIndex = 0;
@@ -29,26 +28,21 @@ namespace Tutorial {
 
         private void Advance() {
             ++nodeIndex;
-            if (nodeIndex < Data.nodes.Count) {
+            if (nodeIndex < Data.nodes.Count)
                 NextNode();
-            } else {
+            else {
                 msgBox.gameObject.SetActive(false);
-                if (lastEvent != null) {
-                    lastEvent.RemoveListener(Advance);
-                }
+                if (lastEvent != null) lastEvent.RemoveListener(Advance);
             }
         }
 
         private void NextNode() {
-            if (lastEvent != null) {
-                lastEvent.RemoveListener(Advance);
-            }
+            if (lastEvent != null) lastEvent.RemoveListener(Advance);
             msgBox.SetMessage(Data.nodes[nodeIndex].message);
 
-            var gameEvent = Data.nodes[nodeIndex].eventToProceed;
+            GameEvent.GameEvent gameEvent = Data.nodes[nodeIndex].eventToProceed;
             gameEvent.AddListener(Advance);
             lastEvent = gameEvent;
         }
     }
 }
-

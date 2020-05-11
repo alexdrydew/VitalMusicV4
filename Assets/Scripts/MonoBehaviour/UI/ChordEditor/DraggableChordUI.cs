@@ -1,36 +1,56 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
-using TMPro;
 
 namespace ChordEditor {
     public class DraggableChordUI : ChordUI, IBeginDragHandler, IDragHandler, IEndDragHandler,
         IPointerEnterHandler, IPointerExitHandler {
+        private new Camera camera;
 
-        public static DraggableChordUI Instantiate(DraggableChordUI prefab,
-            Transform parent, ChordName chord) {
-            var instance = Instantiate(prefab, parent);
-            instance.Chord = chord;
-            instance.isProperlyInstantiated = true;
-            return instance;
-        }
+        private DraggableChord currentDrag;
 
-        private bool isProperlyInstantiated = false;
+        [SerializeField]
+        private float hoverScaleFactor = 0.95f;
+
+        [SerializeField]
+        private float hoverScaleTime = 0.1f;
+
+        private bool isProperlyInstantiated;
+
+        private Vector3 originalScale;
 
         [SerializeField]
         private DraggableChord prefab;
 
-        [SerializeField]
-        float hoverScaleFactor = 0.95f;
-        [SerializeField]
-        float hoverScaleTime = 0.1f;
-
-        private DraggableChord currentDrag;
         private RectTransform rectTransform;
-        private new Camera camera;
 
-        Vector3 originalScale;
+        public void OnBeginDrag(PointerEventData eventData) {
+            if (eventData.button == PointerEventData.InputButton.Left)
+                currentDrag = DraggableChord.Instantiate(prefab, camera, Chord);
+        }
+
+        public void OnDrag(PointerEventData eventData) {
+            if (eventData.button == PointerEventData.InputButton.Left) currentDrag.OnDrag(eventData);
+        }
+
+        public void OnEndDrag(PointerEventData eventData) {
+            if (eventData.button == PointerEventData.InputButton.Left) currentDrag.OnEndDrag(eventData);
+        }
+
+        public void OnPointerEnter(PointerEventData eventData) {
+            LeanTween.scale(rectTransform, originalScale * hoverScaleFactor, hoverScaleTime);
+        }
+
+        public void OnPointerExit(PointerEventData eventData) {
+            LeanTween.scale(rectTransform, originalScale, hoverScaleTime);
+        }
+
+        public static DraggableChordUI Instantiate(DraggableChordUI prefab,
+            Transform parent, ChordName chord) {
+            DraggableChordUI instance = Instantiate(prefab, parent);
+            instance.Chord = chord;
+            instance.isProperlyInstantiated = true;
+            return instance;
+        }
 
         protected override void Awake() {
             base.Awake();
@@ -41,36 +61,7 @@ namespace ChordEditor {
         }
 
         private void Start() {
-            if (!isProperlyInstantiated) {
-                throw new InstantiationException<DraggableChordUI>();
-            }
-        }
-
-        public void OnBeginDrag(PointerEventData eventData) {
-            if (eventData.button == PointerEventData.InputButton.Left) {
-                currentDrag = DraggableChord.Instantiate(prefab, camera, Chord);
-            }
-        }
-
-        public void OnDrag(PointerEventData eventData) {
-            if (eventData.button == PointerEventData.InputButton.Left) {
-                currentDrag.OnDrag(eventData);
-            }
-        }
-
-        public void OnEndDrag(PointerEventData eventData) {
-            if (eventData.button == PointerEventData.InputButton.Left) {
-                currentDrag.OnEndDrag(eventData);
-            }
-        }
-
-        public void OnPointerEnter(PointerEventData eventData) {
-            LeanTween.scale(rectTransform, originalScale * hoverScaleFactor, hoverScaleTime);
-        }
-
-        public void OnPointerExit(PointerEventData eventData) {
-            LeanTween.scale(rectTransform, originalScale, hoverScaleTime);
+            if (!isProperlyInstantiated) throw new InstantiationException<DraggableChordUI>();
         }
     }
 }
-

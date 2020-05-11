@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60a608c7f6e70dd4c9c189b5d3484007, type: 3}
+  m_Name: anon_18
+  m_EditorClassIdentifier: 
+  character: {fileID: 11400000, guid: 031dcaa2dcece1d4fa351b6450d280c6, type: 2}
+  what: "The last option just to reject my offer. Don\u2019t worry, I\u2019ll understand
+    you, and nobody\u2019ll touch you. But, David, I\u2019ll repeat my question:
+    when you\u2019ll receive so great opportunity to find Rebecca next time?"
