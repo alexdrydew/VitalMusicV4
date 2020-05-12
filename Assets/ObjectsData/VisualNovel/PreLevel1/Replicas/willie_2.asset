@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: willie_2
   m_EditorClassIdentifier: 
   character: {fileID: 11400000, guid: 5c36aadcc2703e142834204aa57c659d, type: 2}
-  what: The album release is in just a hour. They left yesterday to celebrate it,
+  what: The album release is in just an hour. They left yesterday to celebrate it,
     having decided they would finish the piano part in the morning, but they got
     down tonight so hard that the pianist broke his arm.

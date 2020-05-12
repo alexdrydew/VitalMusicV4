@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d31f5855889fdbf46b695ae7429f9271, type: 3}
   m_Name: 2
   m_EditorClassIdentifier: 
-  message: The main field is a place, where the chords should be placed. Chords are
-    stored in the <b>CHORDS</b> tab.
   eventToProceed: {fileID: 11400000, guid: cb24b2327624e9740acff9311991f184, type: 2}
+  message: You can navigate through the main field using the right mouse button and
+    the mouse wheel.

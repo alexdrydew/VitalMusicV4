@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d31f5855889fdbf46b695ae7429f9271, type: 3}
   m_Name: 7
   m_EditorClassIdentifier: 
-  message: "Now try to reveal all hidden chords. That\u2019s the end of tutorial.
-    Good luck!"
-  eventToProceed: {fileID: 11400000, guid: cb24b2327624e9740acff9311991f184, type: 2}
+  eventToProceed: {fileID: 11400000, guid: 46f78af660a4eef4c8e14d27538e9da6, type: 2}
+  message: You can listen the track from any point you want by dragging the array
+    beneath the chord blocks from left to right. Try it!

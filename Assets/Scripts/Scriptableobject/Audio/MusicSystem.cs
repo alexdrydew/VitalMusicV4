@@ -146,6 +146,7 @@ namespace Managers {
             StartBlock = 0;
             var musicPlayerInstance = new GameObject {name = "AudioSource"};
             if (pianoMixerGroup != null) {
+                
                 pianoPlayer = musicPlayerInstance.AddComponent<AudioSource>();
                 pianoPlayer.outputAudioMixerGroup = pianoMixerGroup;
             }
