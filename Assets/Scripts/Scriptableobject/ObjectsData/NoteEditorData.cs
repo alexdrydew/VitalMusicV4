@@ -8,7 +8,7 @@ namespace NoteEditor {
         private float contentMargin;
 
         [SerializeField]
-        private NoteProgressGridUi noteProgressGridUIPrefab;
+        private NoteProgressGridUi noteProgressGridUiPrefab;
 
         [SerializeField]
         private NoteSelector noteSelectorPrefab;
@@ -16,6 +16,6 @@ namespace NoteEditor {
         public NoteSelector NoteSelectorPrefab => noteSelectorPrefab;
         public float ContentMargin => contentMargin;
 
-        public NoteProgressGridUi NoteProgressGridUiPrefab => noteProgressGridUIPrefab;
+        public NoteProgressGridUi NoteProgressGridUiPrefab => noteProgressGridUiPrefab;
     }
 }

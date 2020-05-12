@@ -1,24 +1,31 @@
 ﻿using System.Collections;
+using CustomUI;
 using Managers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MusicLevelData : LevelData {
-    [SerializeField] [Scene]
-    protected string levelScene;
+public abstract class MusicLevelData : LevelData {
 
+    [SerializeField]
+    private ApplicationManager applicationManager;
+    
     [SerializeField]
     protected MusicSystem musicSystem;
 
-    protected virtual IEnumerator LoadAsync() {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(levelScene);
-        while (!asyncLoad.isDone) yield return null;
-        musicSystem.Init();
-    }
+    [SerializeField]
+    protected CustomUI.MessageBoxUI endLevelScreenPrefab;
 
-    public override void Load() {
-        EntryPoint.Instance.StartCoroutine(LoadAsync());
+    protected CustomUI.MessageBoxUI endLevelScreen;
+    
+    
+    protected void CompleteLevel() {
+        endLevelScreen = Instantiate(endLevelScreenPrefab);
+        endLevelScreen.MessageBoxPressed.AddListener(applicationManager.NextLevel);
     }
-
-    public override void Unload() { }
+    
+    public override void Unload() {
+        base.Unload();
+        Destroy(endLevelScreen);
+        musicSystem.Destroy();
+    }
 }

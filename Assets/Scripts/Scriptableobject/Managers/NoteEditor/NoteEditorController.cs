@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using JetBrains.Annotations;
+using ProgressGrid;
+using UnityEngine;
 
 namespace NoteEditor {
     [CreateAssetMenu(fileName = "NoteEditorController", menuName = "NoteEditor/NoteEditorController")]
@@ -11,6 +13,8 @@ namespace NoteEditor {
         [SerializeField]
         private NoteEventManager noteEventManager;
 
+        public NoteProgressGridUi NoteProgressGridUi => noteEditor.NoteProgressGridUi;
+
         public void Init() {
             noteEditor = Instantiate(noteEditorPrefab);
             base.Init(noteEditor);
@@ -20,6 +24,11 @@ namespace NoteEditor {
             noteEventManager.Init();
         }
 
+
+        public Note GetNote(int pos) {
+            return noteEditor.CurrentNotes[pos];
+        }
+        
         private void UpdateNotes() {
             noteEventManager.UpdateNotes(noteEditor.CurrentNotes);
         }

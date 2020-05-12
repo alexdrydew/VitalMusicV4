@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using ChordEditor;
 using CustomUI;
+using Managers;
 using ProgressGrid;
 using Tutorial;
 using UnityEngine;
@@ -15,7 +16,7 @@ namespace Level1 {
         private ChordEditor.ChordEditor chordEditorPrefab;
 
         [SerializeField]
-        private Canvas chordLibraryUIPrefab;
+        private Canvas chordLibraryUiPrefab;
 
         private ChordProgressGridUI chordProgressGrid;
 
@@ -32,14 +33,10 @@ namespace Level1 {
 
         private void CheckChord(int pos) {
             ChordName? chord = chordEditorController.GetChord(pos);
-            if (chord != null)
-                if (chordProgressGrid.TryToRevealChord(pos, (ChordName) chord))
-                    if (chordProgressGrid.CheckIfComplete())
-                        CompleteLevel();
-        }
-
-        private void CompleteLevel() {
-            Debug.Log("Level completed");
+            if (chord == null) return;
+            if (!chordProgressGrid.TryToRevealChord(pos, (ChordName) chord)) return;
+            if (chordProgressGrid.CheckIfComplete())
+                CompleteLevel();
         }
 
         private void AssignControlPanelControls() {
@@ -56,11 +53,15 @@ namespace Level1 {
             musicSystem.BlockChanged.AddListener(CheckChord);
         }
 
-        protected override IEnumerator LoadAsync() {
-            yield return base.LoadAsync();
-
+        private IEnumerator LoadAsync() {
+            yield return LoadScene();
+            LoadMenu();
+            AssignMenu();
+            
+            musicSystem.Init();
+            
             chordProgressGrid = Instantiate(chordProgressGridPrefab);
-            chordEditorController.Init(chordLibraryUIPrefab, chordEditorPrefab, musicSystem);
+            chordEditorController.Init(chordLibraryUiPrefab, chordEditorPrefab, musicSystem);
             tutorialController.Init();
 
             AssignControlPanelControls();
@@ -68,7 +69,13 @@ namespace Level1 {
             chordEditorController.PointerPosChanged.AddListener(pos => musicSystem.StartBlock = pos);
         }
 
+        public override void Load() {
+            EntryPoint.Instance.StartCoroutine(LoadAsync());
+        }
+
         public override void Unload() {
+            base.Unload();
+            RemoveMenuAssignment();
             musicSystem.Destroy();
             chordEditorController.Destroy();
             tutorialController.Destroy();

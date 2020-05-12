@@ -12,11 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5808773006a4eb7479bbb0f3d936e3d3, type: 3}
   m_Name: Level2Data
   m_EditorClassIdentifier: 
-  levelScene: Level
+  unityScene: Level
+  menuPrefab: {fileID: 3883063265766242245, guid: 0bb39c86c47bf7648bfa8d5bd90d8361,
+    type: 3}
+  applicationManager: {fileID: 11400000, guid: 77cede49c2b62bc468b36b614efec986, type: 2}
   musicSystem: {fileID: 11400000, guid: 349b33f0792655844bf64d7735ee4f94, type: 2}
+  endLevelScreenPrefab: {fileID: 2856673935100941454, guid: 530de507068a34741a493272862a8e22,
+    type: 3}
   extendedControlPanelPrefab: {fileID: 3872120318254434936, guid: 99d46834f429fbd42a4a02f18262ed3a,
     type: 3}
-  noteEditorController: {fileID: 11400000, guid: 08d2f63aef2fa944698f2e72d94647be,
-    type: 2}
   ghostPlayMusicSystem: {fileID: 11400000, guid: 8c6b922dadeb97946b8a8df68e26f97e,
     type: 2}
+  noteEditorController: {fileID: 11400000, guid: 08d2f63aef2fa944698f2e72d94647be,
+    type: 2}
+  tutorialController: {fileID: 11400000, guid: 29484ee288e42ce4d94af64caa4d7c8f, type: 2}

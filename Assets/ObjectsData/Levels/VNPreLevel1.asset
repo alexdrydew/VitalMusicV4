@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef19b316668931c47bc8e15975fdec76, type: 3}
   m_Name: VNPreLevel1
   m_EditorClassIdentifier: 
-  scene: VisualNovel
+  unityScene: VisualNovel
+  menuPrefab: {fileID: 3883063265766242245, guid: 0bb39c86c47bf7648bfa8d5bd90d8361,
+    type: 3}
+  applicationManager: {fileID: 11400000, guid: 77cede49c2b62bc468b36b614efec986, type: 2}
+  controller: {fileID: 11400000, guid: 3ec5d2cac35971b4cb51b847e84fe168, type: 2}
   scenes:
   - {fileID: 11400000, guid: 5898d87c8fcd7664e8e653fb4922f8cb, type: 2}
   - {fileID: 11400000, guid: 540f447a22ee9a045900b3f5df31e304, type: 2}
+  startSceneIndex: 0
   textBackground: {fileID: 21300000, guid: d8b24574136854447b5e708d2bfc58ce, type: 3}
   uiPrefab: {fileID: 8450263237869390613, guid: 1baab05056f50014aba36e6c8a8cf173,
     type: 3}
-  controller: {fileID: 11400000, guid: 3ec5d2cac35971b4cb51b847e84fe168, type: 2}
-  applicationManager: {fileID: 11400000, guid: 77cede49c2b62bc468b36b614efec986, type: 2}
-  startSceneIndex: 0

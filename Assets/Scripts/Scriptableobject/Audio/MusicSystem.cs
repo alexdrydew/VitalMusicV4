@@ -100,7 +100,7 @@ namespace Managers {
 
         private List<AudioSource> backingTrackPlayers;
         private int currentBlock;
-
+    
         [SerializeField]
         private MusicSystemData data;
 
@@ -143,28 +143,27 @@ namespace Managers {
             if (Started == null) Started = new StartedEvent();
             if (Stopped == null) Stopped = new StoppedEvent();
 
-            musicPlayer = Instantiate(new GameObject());
             StartBlock = 0;
-
+            var musicPlayerInstance = new GameObject {name = "AudioSource"};
             if (pianoMixerGroup != null) {
-                pianoPlayer = musicPlayer.AddComponent<AudioSource>();
+                pianoPlayer = musicPlayerInstance.AddComponent<AudioSource>();
                 pianoPlayer.outputAudioMixerGroup = pianoMixerGroup;
             }
 
             if (ePianoMixerGroup != null) {
-                ePianoPlayer = musicPlayer.AddComponent<AudioSource>();
+                ePianoPlayer = musicPlayerInstance.AddComponent<AudioSource>();
                 ePianoPlayer.outputAudioMixerGroup = ePianoMixerGroup;
             }
 
             if (stringMixerGroup != null) {
-                stringPlayer = musicPlayer.AddComponent<AudioSource>();
+                stringPlayer = musicPlayerInstance.AddComponent<AudioSource>();
                 stringPlayer.outputAudioMixerGroup = stringMixerGroup;
             }
 
             if (backingTrackMixerGroup != null) {
                 backingTrackPlayers = new List<AudioSource>();
                 foreach (AudioClip clip in data.BackingTracks) {
-                    var backingTrackPlayer = musicPlayer.AddComponent<AudioSource>();
+                    var backingTrackPlayer = musicPlayerInstance.AddComponent<AudioSource>();
                     backingTrackPlayer.outputAudioMixerGroup = backingTrackMixerGroup;
                     backingTrackPlayer.clip = clip;
                     backingTrackPlayers.Add(backingTrackPlayer);
@@ -177,7 +176,9 @@ namespace Managers {
         }
 
         public void Destroy() {
-            Destroy(musicPlayer);
+            if (musicPlayer != null) {
+                Destroy(musicPlayer);   
+            }
             backingTrackPlayers = null;
 
             Started?.RemoveAllListeners();
@@ -209,22 +210,21 @@ namespace Managers {
                 Stop();
             else {
                 IsPlaying = true;
-                if (pianoPlayer != null) pianoPlayer.Play();
-                if (ePianoPlayer != null) ePianoPlayer.Play();
-                if (stringPlayer != null) stringPlayer.Play();
-                if (backingTrackPlayers != null)
+                startSample = GetSampleTime();
+                currentBlock = StartBlock;
+                
+                if (backingTrackPlayers != null) {
                     foreach (AudioSource player in backingTrackPlayers) {
                         player.Play();
                         player.time = (float) (StartBlock * GetBlockTimeLength());
                     }
-
-                startSample = GetSampleTime();
-                currentBlock = StartBlock;
+                }
+                
                 Started.Invoke();
 
                 if (playbackStartedEvent != null) playbackStartedEvent.Invoke();
 
-                AdvanceBlock(currentBlock);
+                AdvanceBlock();
             }
         }
 
@@ -245,41 +245,50 @@ namespace Managers {
         }
 
         private long GetSampleTime() {
+            if (backingTrackPlayers != null && backingTrackPlayers.Count > 0) {
+                return (long) (AudioSettings.dspTime * backingTrackPlayers[0].clip.frequency);
+            }
             return (long) (AudioSettings.dspTime * AudioSettings.outputSampleRate);
         }
 
-        public double GetBlockTimeLength() {
+        private double GetBlockTimeLength() {
             double quarterTime = 60.0 / data.Tempo;
             double blockTime = quarterTime * 4 * data.BlockLength;
             return blockTime;
         }
 
+        public long GetOutputBlockSampleLength() {
+            return (long) (GetBlockTimeLength() * AudioSettings.outputSampleRate);
+        }
+        
         public long GetBlockSampleLength() {
-            return (long) (AudioSettings.outputSampleRate * GetBlockTimeLength());
+            if (backingTrackPlayers != null && backingTrackPlayers.Count > 0) {
+                return (long) (GetBlockTimeLength() * backingTrackPlayers[0].clip.frequency);
+            }
+
+            return GetOutputBlockSampleLength();
         }
 
-        private void AdvanceBlock(int block) {
-            ProcessEvents(block);
-            BlockChanged.Invoke(block);
+        private void AdvanceBlock() {
+            ProcessEvents(currentBlock);
+            BlockChanged.Invoke(currentBlock);
             ++currentBlock;
         }
 
         private void ProcessEvents(int block) {
             if (Grid[block].events != null)
                 foreach (MusicEvent ev in Grid[block].events)
-                    ev.Action(GetBlockSampleLength() * (currentBlock - StartBlock) + startSample);
+                    ev.Action((long) (AudioSettings.dspTime * AudioSettings.outputSampleRate));
         }
 
         private void Update() {
-            if (IsPlaying)
-                if (GetSampleTime() - startSample >= GetBlockSampleLength() * (currentBlock - StartBlock)) {
-                    if (currentBlock >= Grid.Count) {
-                        Stop();
-                        return;
-                    }
-
-                    AdvanceBlock(currentBlock);
-                }
+            if (!IsPlaying) return;
+            if (GetSampleTime() - startSample < GetBlockSampleLength() * (currentBlock - StartBlock)) return;
+            if (currentBlock >= Grid.Count) {
+                Stop();
+                return;
+            }
+            AdvanceBlock();
         }
     }
 }

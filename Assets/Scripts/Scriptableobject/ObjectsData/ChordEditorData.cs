@@ -13,9 +13,6 @@ namespace ChordEditor {
         private float contentMargin;
 
         [SerializeField]
-        private EditorPointer editorPointerPrefab;
-
-        [SerializeField]
         private Vector3 origin;
 
         public DraggableChord ChordPrefab => chordPrefab;

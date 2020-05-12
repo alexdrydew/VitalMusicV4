@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95f0d03107a02cf439cd62527355d43b, type: 3}
   m_Name: Level2MusicSystemData
   m_EditorClassIdentifier: 
-  tempo: 90
+  backingTracks:
+  - {fileID: 8300000, guid: a6ae964a8fbb992479e4456bcd736bbb, type: 3}
   blockLength: 0.125
   grid:
   - events: []
@@ -111,37 +112,4 @@ MonoBehaviour:
   - events: []
   - events: []
   - events: []
-  - events: []
-  - events: []
-  - events: []
-  - events: []
-  - events: []
-  - events: []
-  - events: []
-  - events: []
-  - events: []
-  - events: []
-  - events: []
-  - events: []
-  - events: []
-  - events: []
-  - events: []
-  - events: []
-  - events: []
-  - events: []
-  - events: []
-  - events: []
-  - events: []
-  - events: []
-  - events: []
-  - events: []
-  - events: []
-  - events: []
-  - events: []
-  - events: []
-  - events: []
-  - events: []
-  - events: []
-  - events: []
-  backingTracks:
-  - {fileID: 8300000, guid: a6ae964a8fbb992479e4456bcd736bbb, type: 3}
+  tempo: 90

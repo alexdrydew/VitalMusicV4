@@ -24,7 +24,8 @@ namespace ChordEditor {
         private void AddChord(Chord chord, int pos) {
             foreach (Note note in chord.Notes)
                 for (int i = 0; i < chordsPerBlock; ++i) {
-                    long offset = (long) (MusicSystem.GetBlockSampleLength() * ((double) i / chordsPerBlock));
+                    //Why -10? Because it works! ¯\_(ツ)_/¯
+                    long offset = (long) (MusicSystem.GetOutputBlockSampleLength() * ((double) i / chordsPerBlock) - 10);
                     var ev = new MusicEvent(
                         sample => player.PlayNote(
                             note.MidiNum, chordsVelocity, MusicSystem.GetBlockSampleLength(),

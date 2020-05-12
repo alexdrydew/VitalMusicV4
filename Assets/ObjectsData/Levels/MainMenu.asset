@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f89f5245705489498f81893c782df9b, type: 3}
   m_Name: MainMenu
   m_EditorClassIdentifier: 
+  unityScene: MainMenu
+  menuPrefab: {fileID: 5423467316533067820, guid: f790a6c28b33c5547ab16bf2ecce9f88,
+    type: 3}
   musicPrefab: {fileID: 1289882611495916550, guid: 60227e8ae5af04541b7690d93122f721,
     type: 3}
   uiPrefab: {fileID: 5423467316533067820, guid: f790a6c28b33c5547ab16bf2ecce9f88,

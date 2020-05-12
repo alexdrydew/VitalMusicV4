@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0b6f6a51ff9024f4592baccb1c3fb3fa, type: 3}
-  m_Name: TutorialControllerLevel1
+  m_Name: TutorialControllerLevel2
   m_EditorClassIdentifier: 
-  Data: {fileID: 11400000, guid: 67e617d464ccfcc40a1cfe604f7f812e, type: 2}
+  data: {fileID: 11400000, guid: cca245fc4482d184a95e9d981273ac6e, type: 2}
   uiPrefab: {fileID: 1598395134055959874, guid: a5232faa910caf749a66cb926c3626b9,
     type: 3}

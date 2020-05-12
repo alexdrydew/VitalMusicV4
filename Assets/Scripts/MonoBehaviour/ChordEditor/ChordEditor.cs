@@ -39,21 +39,21 @@ namespace ChordEditor {
             grid.cellSize = chordSize;
             grid.transform.localPosition = new Vector2(0, -chordSize.y / 2);
 
-            Bounds = new BoundsInt(-slotsAmount / 2 - slotsAmount % 2, 0, 0, slotsAmount, 2, 0);
-            pointer.Bounds = Bounds;
+            bounds = new BoundsInt(-slotsAmount / 2 - slotsAmount % 2, 0, 0, slotsAmount, 2, 0);
 
             InstantiateSlots();
+            InitPointer(new Vector3Int(bounds.xMin, -1, 0));
 
             spriteRenderer.size = new Vector2(chordSize.x * slotsAmount + 2 * data.ContentMargin,
                 spriteRenderer.size.y);
         }
-
+        
         private void InstantiateSlots() {
             if (ChordsUpdated == null) ChordsUpdated = new ChordAttachedToSlotEvent();
 
             slots = new List<ChordSlot>();
 
-            for (int i = Bounds.xMin; i < Bounds.xMax; ++i) {
+            for (int i = bounds.xMin; i < bounds.xMax; ++i) {
                 ChordSlot slot = ChordSlot.Instantiate(data.ChordSlotPrefab,
                     grid.transform,
                     grid.GetCellCenterLocal(new Vector3Int(i, 0, 0)),

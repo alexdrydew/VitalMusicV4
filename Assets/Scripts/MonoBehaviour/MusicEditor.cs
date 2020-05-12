@@ -3,24 +3,28 @@
 public class MusicEditor : MonoBehaviour {
     [SerializeField]
     protected Grid grid;
-
     [SerializeField]
     protected EditorPointer pointer;
-
-    private Vector3Int? savedPointerPos;
-
     [SerializeField]
     protected int slotsAmount;
+    
+    private Vector3Int? savedPointerPos;
 
     protected SpriteRenderer spriteRenderer;
 
-    public BoundsInt Bounds { get; protected set; }
+    protected BoundsInt bounds;
+    
     public EditorPointerPosChanged PointerPosChanged => pointer.PosChanged;
 
     protected virtual void Awake() {
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
+    protected virtual void InitPointer(Vector3Int startCell) {
+        pointer.Bounds = bounds;
+        pointer.MovePointerTo(startCell);
+    }
+    
     public void SavePointerPos() {
         savedPointerPos = pointer.CellPos;
         pointer.IsInputActive = false;
@@ -33,6 +37,6 @@ public class MusicEditor : MonoBehaviour {
     }
 
     public void MovePointerTo(int pos) {
-        pointer.MovePointerXTo(pos + Bounds.xMin);
+        pointer.MovePointerXTo(pos + bounds.xMin);
     }
 }

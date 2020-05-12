@@ -8,6 +8,8 @@ public class LevelLoader : ScriptableObject {
     [SerializeField]
     private List<LevelData> levels;
 
+    public int LevelsCount => levels.Count;
+    
     public void LoadLevel(int index) {
         LoadLevel(levels[index]);
     }

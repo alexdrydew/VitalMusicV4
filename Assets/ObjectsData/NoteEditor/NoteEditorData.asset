@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9110e9e910099046b69f27680c64ad0, type: 3}
   m_Name: NoteEditorData
   m_EditorClassIdentifier: 
+  contentMargin: 2
+  noteProgressGridUiPrefab: {fileID: 7811968356897224956, guid: 9f9fbea9aa0d53c4093760872991259e,
+    type: 3}
   noteSelectorPrefab: {fileID: 1870583249874044670, guid: fa988bb3027836948b13a25fb390433e,
     type: 3}
-  noteProgressGridUIPrefab: {fileID: 7811968356897224956, guid: 9f9fbea9aa0d53c4093760872991259e,
-    type: 3}
-  contentMargin: 2

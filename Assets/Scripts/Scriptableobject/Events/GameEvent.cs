@@ -12,11 +12,12 @@ namespace GameEvent {
         }
 
         public void AddListener(UnityAction action) {
+            if (unityEvent == null) unityEvent = new UnityEvent();
             unityEvent.AddListener(action);
         }
 
         public void RemoveListener(UnityAction action) {
-            unityEvent.RemoveListener(action);
+            unityEvent?.RemoveListener(action);
         }
     }
 }

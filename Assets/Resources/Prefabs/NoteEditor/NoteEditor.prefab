@@ -97,9 +97,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2a6388b92b15ac43806910d52c29520, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotsAmount: 128
   grid: {fileID: 4999833299263293047}
   pointer: {fileID: 5977513924259160264}
+  slotsAmount: 96
   data: {fileID: 11400000, guid: a938cbd4f5cdff34ea73456a5ff28275, type: 2}
 --- !u!1 &3791173188981102689
 GameObject:
@@ -268,5 +268,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 4999833299263293047}
-  startCell: {x: -64, y: -1, z: 0}
   offset: {x: 0, y: 0}
+  dragButton: 0

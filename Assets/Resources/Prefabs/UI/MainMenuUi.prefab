@@ -168,7 +168,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 8087627523328796905}
   m_Direction: 0
   m_MinValue: -20
-  m_MaxValue: 20
+  m_MaxValue: 10
   m_WholeNumbers: 0
   m_Value: 0.7
   m_OnValueChanged:
@@ -458,8 +458,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19d02e785686b7549ad3b1464a70d2cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverColor: {r: 0.7764706, g: 0.4745098, b: 0.25882354, a: 1}
-  idleColor: {r: 0.5647059, g: 0.5647059, b: 0.5647059, a: 1}
   action:
     m_PersistentCalls:
       m_Calls:
@@ -475,6 +473,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  hoverColor: {r: 0.7764706, g: 0.4745098, b: 0.25882354, a: 1}
+  idleColor: {r: 0.5647059, g: 0.5647059, b: 0.5647059, a: 1}
 --- !u!1 &8087627521913049232
 GameObject:
   m_ObjectHideFlags: 0
@@ -752,8 +752,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19d02e785686b7549ad3b1464a70d2cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverColor: {r: 0.5647059, g: 0.5647059, b: 0.5647059, a: 1}
-  idleColor: {r: 1, g: 1, b: 1, a: 1}
   action:
     m_PersistentCalls:
       m_Calls:
@@ -781,6 +779,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+  hoverColor: {r: 0.5647059, g: 0.5647059, b: 0.5647059, a: 1}
+  idleColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!222 &8087627521988855591
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2066,18 +2066,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3213541a270398b4aa5cac727b4ca0e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sliders:
-  - slider: {fileID: 8087627521742690184}
-    audioVariables:
-    - PianoVolume
-    - StringVolume
-  - slider: {fileID: 8087627523065679425}
-    audioVariables:
-    - BackingTrackVolume
-  - slider: {fileID: 8087627523417174986}
-    audioVariables:
-    - BackgroundMusicVolume
   applicationManager: {fileID: 11400000, guid: 77cede49c2b62bc468b36b614efec986, type: 2}
+  sliders:
+  - audioVariables:
+    - InstrumentsVolume
+    slider: {fileID: 8087627521742690184}
+  - audioVariables:
+    - BackingTrackVolume
+    slider: {fileID: 8087627523065679425}
+  - audioVariables:
+    - BackgroundMusicVolume
+    slider: {fileID: 8087627523417174986}
 --- !u!114 &8087627522595223447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2536,8 +2535,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19d02e785686b7549ad3b1464a70d2cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverColor: {r: 0.7764706, g: 0.4745098, b: 0.25882354, a: 1}
-  idleColor: {r: 0.5647059, g: 0.5647059, b: 0.5647059, a: 1}
   action:
     m_PersistentCalls:
       m_Calls:
@@ -2565,6 +2562,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+  hoverColor: {r: 0.7764706, g: 0.4745098, b: 0.25882354, a: 1}
+  idleColor: {r: 0.5647059, g: 0.5647059, b: 0.5647059, a: 1}
 --- !u!1 &8087627522895208535
 GameObject:
   m_ObjectHideFlags: 0
@@ -3161,13 +3160,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19d02e785686b7549ad3b1464a70d2cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverColor: {r: 0.7764706, g: 0.4745098, b: 0.25882354, a: 1}
-  idleColor: {r: 0.5647059, g: 0.5647059, b: 0.5647059, a: 1}
   action:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
+      - m_Target: {fileID: 11400000, guid: 77cede49c2b62bc468b36b614efec986, type: 2}
+        m_TargetAssemblyTypeName: Managers.ApplicationManager, Assembly-CSharp
         m_MethodName: Quit
         m_Mode: 1
         m_Arguments:
@@ -3178,6 +3175,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  hoverColor: {r: 0.7764706, g: 0.4745098, b: 0.25882354, a: 1}
+  idleColor: {r: 0.5647059, g: 0.5647059, b: 0.5647059, a: 1}
 --- !u!1 &8087627523255097781
 GameObject:
   m_ObjectHideFlags: 0

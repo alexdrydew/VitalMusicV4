@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28cb239b9220fcd49919e87acc76d92a, type: 3}
   m_Name: ChordEventManager
   m_EditorClassIdentifier: 
-  chordsVelocity: 60
+  musicSystem: {fileID: 11400000, guid: 2c15a90e7d117e141a9ac67b5ef8cd03, type: 2}
   chordsPerBlock: 4
+  chordsVelocity: 60
   player: {fileID: 11400000, guid: bb7856f38017aa246afa9baf8fa6f47c, type: 2}

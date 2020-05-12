@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0949df658dcfdfd4d9dc6b201092456b, type: 3}
   m_Name: A
   m_EditorClassIdentifier: 
-  octave: 3
   noteName: 33
+  octave: 3

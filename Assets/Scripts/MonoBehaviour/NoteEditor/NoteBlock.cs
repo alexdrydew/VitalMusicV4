@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace NoteEditor {
     [RequireComponent(typeof(SpriteRenderer), typeof(Collider2D))]
-    public class NoteBlock : MonoBehaviour, IPointerClickHandler {
+    public class NoteBlock : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler {
         public enum Mode {
             Inactive,
             Left,
@@ -13,7 +14,10 @@ namespace NoteEditor {
         }
 
         private Mode currentMode;
-
+        private static Mode lastClickedNote;
+        
+        [SerializeField]
+        private PointerEventData.InputButton inputButton;
         [SerializeField]
         private Sprite noteBlockActiveLeft;
 
@@ -33,6 +37,9 @@ namespace NoteEditor {
         public int NotePos;
 
         private SpriteRenderer spriteRenderer;
+
+        private Vector2 spriteSize;
+        
         public NoteSelectedEvent NoteSelected { get; private set; }
 
         public Mode CurrentMode {
@@ -60,14 +67,26 @@ namespace NoteEditor {
             }
         }
 
-        public void OnPointerClick(PointerEventData eventData) {
-            NoteSelected.Invoke(NotePos);
-        }
-
         private void Awake() {
             if (NoteSelected == null) NoteSelected = new NoteSelectedEvent();
             spriteRenderer = GetComponent<SpriteRenderer>();
             CurrentMode = Mode.Inactive;
+            spriteSize = spriteRenderer.bounds.size;
+        }
+
+        public void OnPointerDown(PointerEventData eventData) {
+            if (eventData.button != inputButton) return;
+            lastClickedNote = CurrentMode;
+            NoteSelected.Invoke(NotePos);
+        }
+        
+        public void OnPointerEnter(PointerEventData eventData) {
+            if (eventData.pointerPress == null) return;
+            if (((lastClickedNote == Mode.Inactive && CurrentMode == Mode.Inactive) ||
+                 (lastClickedNote != Mode.Inactive && CurrentMode != Mode.Inactive)) &&
+                Math.Abs(eventData.pointerPress.transform.localPosition.y - transform.localPosition.y) < spriteSize.y / 2) {
+                NoteSelected.Invoke(NotePos);
+            }
         }
     }
 }

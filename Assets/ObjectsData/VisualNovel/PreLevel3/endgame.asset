@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae648c2e2b2f54f4e91cf5139320f3fe, type: 3}
+  m_Name: endgame
+  m_EditorClassIdentifier: 
+  backgroundImage: {fileID: 0}
+  replicas:
+  - {fileID: 11400000, guid: 9df83352a6e02c54990b385f8129bd8a, type: 2}
+  - {fileID: 11400000, guid: bd210aeba5d289b49b0fdb30f87086cc, type: 2}

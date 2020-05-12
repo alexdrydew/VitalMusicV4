@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace Menu {
     [CreateAssetMenu(fileName = "MainMenu", menuName = "LevelData/MainMenu")]
@@ -13,16 +14,21 @@ namespace Menu {
         [SerializeField]
         private GameObject uiPrefab;
 
-        public override void Load() {
-            if (ui != null) Destroy(ui);
-            if (music != null) Destroy(music);
-            ui = Instantiate(uiPrefab);
+        private IEnumerator LoadAsync() {
+            yield return LoadScene();
+            LoadMenu();
+            ToggleMenu();
+            
             music = Instantiate(musicPrefab);
             music.Play();
         }
 
+        public override void Load() {
+            EntryPoint.Instance.StartCoroutine(LoadAsync());
+        }
+
         public override void Unload() {
-            Destroy(ui);
+            base.Unload();
             Destroy(music);
         }
     }

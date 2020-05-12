@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 658207ecd60b73a40bc372480538eb9f, type: 3}
   m_Name: MusicSystemLevel2
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: c2fe77fee76ca4d4ab028c15fd0d581c, type: 2}
-  playbackStartedEvent: {fileID: 0}
-  pianoMixerGroup: {fileID: 0}
-  ePianoMixerGroup: {fileID: 0}
-  stringMixerGroup: {fileID: -8447745274034369961, guid: 9c6b49f0aec313d4ea17f839e6b4bde8,
-    type: 2}
   backingTrackMixerGroup: {fileID: -2673895676509017411, guid: 9c6b49f0aec313d4ea17f839e6b4bde8,
     type: 2}
+  data: {fileID: 11400000, guid: c2fe77fee76ca4d4ab028c15fd0d581c, type: 2}
+  ePianoMixerGroup: {fileID: 0}
   midiPlayers:
   - {fileID: 11400000, guid: 2104b24ff28baed4e856812bc09cc772, type: 2}
+  pianoMixerGroup: {fileID: 0}
+  playbackStartedEvent: {fileID: 0}
+  stringMixerGroup: {fileID: -8447745274034369961, guid: 9c6b49f0aec313d4ea17f839e6b4bde8,
+    type: 2}

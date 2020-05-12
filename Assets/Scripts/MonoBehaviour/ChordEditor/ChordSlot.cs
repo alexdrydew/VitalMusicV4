@@ -48,6 +48,7 @@ namespace ChordEditor {
 
         public void FreeChord() {
             Attached = null;
+            ChordAttached.Invoke();
         }
     }
 }

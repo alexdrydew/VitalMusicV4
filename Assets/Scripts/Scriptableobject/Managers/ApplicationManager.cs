@@ -25,8 +25,16 @@ namespace Managers {
             loader.Destroy();
         }
 
+        public void RestartGame() {
+            currentLevelIndex = 0;
+            loader.LoadLevel(currentLevelIndex);
+        }
+
         public void NextLevel() {
             ++currentLevelIndex;
+            if (currentLevelIndex >= loader.LevelsCount) {
+                currentLevelIndex = 0;
+            }
             loader.LoadLevel(currentLevelIndex);
         }
 

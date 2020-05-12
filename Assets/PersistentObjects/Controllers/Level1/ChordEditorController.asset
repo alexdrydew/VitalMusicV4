@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: ChordEditorController
   m_EditorClassIdentifier: 
   chordEventManager: {fileID: 11400000, guid: f23a56ff9304035498e52721a5863be1, type: 2}
+  ChordPlacedEvent: {fileID: 11400000, guid: 64bc34a05d8e9ad40806c2905326162d, type: 2}
   PointerPosChangedEvent: {fileID: 11400000, guid: 46f78af660a4eef4c8e14d27538e9da6,
     type: 2}
-  ChordPlacedEvent: {fileID: 11400000, guid: 64bc34a05d8e9ad40806c2905326162d, type: 2}

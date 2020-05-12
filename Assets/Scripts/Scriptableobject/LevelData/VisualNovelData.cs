@@ -13,9 +13,6 @@ namespace VisualNovel {
         [SerializeField]
         private VisualNovelController controller;
 
-        [Scene] [SerializeField]
-        private string scene;
-
         [SerializeField]
         private List<Scene> scenes;
 
@@ -35,8 +32,9 @@ namespace VisualNovel {
         public int StartSceneIndex => startSceneIndex;
 
         private IEnumerator LoadAsync() {
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(scene);
-            while (!asyncLoad.isDone) yield return null;
+            yield return LoadScene();
+            LoadMenu();
+            AssignMenu();
             controller.Init(this);
         }
 
@@ -45,6 +43,8 @@ namespace VisualNovel {
         }
 
         public override void Unload() {
+            base.Unload();
+            RemoveMenuAssignment();
             controller.Destroy();
         }
     }

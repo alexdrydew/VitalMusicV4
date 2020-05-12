@@ -2,12 +2,12 @@
 using CustomUI;
 using Managers;
 using NoteEditor;
+using Tutorial;
 using UnityEngine;
 
 namespace Level2 {
     [CreateAssetMenu(fileName = "Level2Data", menuName = "LevelData/Level2Data")]
     public class Level2Data : MusicLevelData {
-        private ExtendedLevelControlPanel extendedControlPanel;
 
         [SerializeField]
         private ExtendedLevelControlPanel extendedControlPanelPrefab;
@@ -17,24 +17,33 @@ namespace Level2 {
 
         [SerializeField]
         private NoteEditorController noteEditorController;
+        
+        [SerializeField]
+        private TutorialController tutorialController;
 
+        private ExtendedLevelControlPanel extendedControlPanel;
+        
         private void CheckNote(int pos) {
-            //TODO
+            NoteName? note = noteEditorController.GetNote(pos)?.NoteName;
+            if (note == null) return;
+            if (!noteEditorController.NoteProgressGridUi.TryToRevealNote(pos, (NoteName) note)) return;
+            if (!noteEditorController.NoteProgressGridUi.CheckIfComplete()) return;
+            CompleteLevel();
         }
 
         private void AssignControlPanelControls() {
-            extendedControlPanel.PlayButtonPressed.AddListener(musicSystem.PlayPause);
-            extendedControlPanel.PlayButtonPressed.AddListener(_ => {
+            extendedControlPanel.PlayButtonPressed.AddListener(state => {
                                                                    ghostPlayMusicSystem.Stop();
                                                                    noteEditorController
                                                                        .StartPointerControl(); //cause Stop() ends pointer control
+                                                                   musicSystem.PlayPause(state);
                                                                });
 
-            extendedControlPanel.AlternativePlayPressed.AddListener(ghostPlayMusicSystem.PlayPause);
-            extendedControlPanel.AlternativePlayPressed.AddListener(_ => {
+            extendedControlPanel.AlternativePlayPressed.AddListener(state => {
                                                                         musicSystem.Stop();
                                                                         noteEditorController
                                                                             .StartPointerControl(); //cause Stop() ends pointer control
+                                                                        ghostPlayMusicSystem.PlayPause(state);
                                                                     });
 
             extendedControlPanel.StopButtonPressed.AddListener(musicSystem.Stop);
@@ -60,21 +69,31 @@ namespace Level2 {
             musicSystem.BlockChanged.AddListener(CheckNote);
         }
 
-        protected override IEnumerator LoadAsync() {
-            yield return base.LoadAsync();
+        private IEnumerator LoadAsync() {
+            yield return LoadScene();
+            LoadMenu();
+            AssignMenu();
 
             musicSystem.Init();
             ghostPlayMusicSystem.Init();
-
+            
             extendedControlPanel = Instantiate(extendedControlPanelPrefab);
             noteEditorController.Init();
 
             AssignControlPanelControls();
             AssignMusicSystemControls();
             noteEditorController.PointerPosChanged.AddListener(pos => musicSystem.StartBlock = pos);
+            
+            tutorialController.Init();
+        }
+
+        public override void Load() {
+            EntryPoint.Instance.StartCoroutine(LoadAsync());
         }
 
         public override void Unload() {
+            base.Unload();
+            RemoveMenuAssignment();
             musicSystem.Destroy();
             ghostPlayMusicSystem.Destroy();
             noteEditorController.Destroy();
