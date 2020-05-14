@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 658207ecd60b73a40bc372480538eb9f, type: 3}
   m_Name: GhostPlayMusicSystem
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 29b5ca3f09c103d4aa1bb8ce9dd58979, type: 2}
-  playbackStartedEvent: {fileID: 0}
-  pianoMixerGroup: {fileID: 0}
-  ePianoMixerGroup: {fileID: 0}
-  stringMixerGroup: {fileID: 0}
-  backingTrackMixerGroup: {fileID: -2673895676509017411, guid: 9c6b49f0aec313d4ea17f839e6b4bde8,
+  backingTrackMixerGroup: {fileID: -2673895676509017411, guid: c614065783ff7ad468b7abbe088c542c,
     type: 2}
+  data: {fileID: 11400000, guid: 29b5ca3f09c103d4aa1bb8ce9dd58979, type: 2}
+  ePianoMixerGroup: {fileID: 0}
+  midiPlayers: []
+  pianoMixerGroup: {fileID: 0}
+  playbackStartedEvent: {fileID: 0}
+  stringMixerGroup: {fileID: 0}

@@ -25,7 +25,9 @@ public abstract class MusicLevelData : LevelData {
     
     public override void Unload() {
         base.Unload();
-        Destroy(endLevelScreen);
+        if (endLevelScreen != null) {
+            Destroy(endLevelScreen);
+        }
         musicSystem.Destroy();
     }
 }

@@ -23,7 +23,9 @@ public abstract class LevelData : ScriptableObject {
     public abstract void Load();
 
     public virtual void Unload() {
-        Destroy(menu);
+        if (menu != null) {
+            Destroy(menu);   
+        }
     }
 
     protected void AssignMenu() {

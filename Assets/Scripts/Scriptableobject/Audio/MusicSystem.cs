@@ -180,13 +180,15 @@ namespace Managers {
             if (musicPlayer != null) {
                 Destroy(musicPlayer);   
             }
+
+            Stop();
             backingTrackPlayers = null;
 
             Started?.RemoveAllListeners();
             Stopped?.RemoveAllListeners();
             BlockChanged?.RemoveAllListeners();
 
-            EntryPoint.Instance.Updated.RemoveListener(Update);
+            EntryPoint.Instance.Updated?.RemoveListener(Update);
         }
 
         public bool AddEvent(MusicEvent ev) {
@@ -235,10 +237,13 @@ namespace Managers {
             if (ePianoPlayer != null) ePianoPlayer.Stop();
             if (stringPlayer != null) stringPlayer.Stop();
             if (backingTrackPlayers != null)
-                foreach (AudioSource player in backingTrackPlayers)
-                    player.Stop();
+                foreach (AudioSource player in backingTrackPlayers) {
+                    if (player != null) {
+                        player.Stop();
+                    }
+                }
             MuteAll();
-            Stopped.Invoke();
+            Stopped?.Invoke();
         }
 
         private void MuteAll() {

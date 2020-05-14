@@ -30,6 +30,8 @@ public class EntryPoint : MonoBehaviour {
     }
 
     private void OnDestroy() {
-        applicationManager.Destroy();
+        if (applicationManager != null) {
+            applicationManager.Destroy();   
+        }
     }
 }
